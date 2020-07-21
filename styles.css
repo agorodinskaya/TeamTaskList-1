@@ -9,6 +9,8 @@ p {
     margin: 0;
 }
 
+
+
 .scroll-area-sm {
     height: 288px;
     overflow-x: hidden
@@ -68,5 +70,3 @@ p {
 .task-detail-summary {
     padding-left: 0.7rem ;
 }
-
-
