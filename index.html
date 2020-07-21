@@ -17,13 +17,21 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-inverse bg-dark">
+        <nav class="navbar">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">Welcome to task planner</a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><i class="fas fa-user-circle"></i> AG</a></li>
+                  <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle fa-3x"></i></a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Setting</a>
+                        <a class="dropdown-item" href="#">Notifications<span class="badge badge-info">3</span></a>
+                        <a class="dropdown-item" href="#">Dashbord</a>
+                        <a class="dropdown-item" href="#">Views</a>
+                    </div>
+                  </div>
 
                 </ul>
             </div>
