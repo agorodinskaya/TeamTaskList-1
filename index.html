@@ -17,65 +17,66 @@
 
 <body>
     <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brandnav-link" data-toggle="porfileSettings" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle fa-3x"></i></a>
 
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+              </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Profile
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="porfileSettings">
+                            <a class="dropdown-item" href="#">Setting</a>
+                            <a class="dropdown-item" href="#">Dashbord</a>
+                            <a class="dropdown-item" href="#">Views</a>
+                            <a class="dropdown-item" href="#">Notifications <span class="badge badge-secondary">3</span></a>
+                        </div>
+                    </li>
 
-      <div class="navbar-header">
-          <a class="navbar-brand" href="#">Welcome to task planner</a>
-      </div>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle fa-3x"></i></a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Setting</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Filter
+                        </a>
 
-            <a class="dropdown-item" href="#">Dashbord</a>
-            <a class="dropdown-item" href="#">Views</a>
-            <a class="dropdown-item" href="#">Notifications <span class="badge badge-secondary">3</span></a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Done <span class="badge badge-success">3</span></a>
-            <a class="dropdown-item" href="#">Review <span class="badge badge-info">3</span></a>
-            <a class="dropdown-item" href="#">In progress <span class="badge badge-warning">3</span></a>
-            <a class="dropdown-item" href="#">To do <span class="badge badge-danger">3</span></a>
-
-          </div>
-        </li>
-
-        </ul>
-
-
-
-
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <form class="form-inline my-2 my-lg-0">
+                              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                            </form>
+                            <a class="dropdown-item" href="#">Done <span class="badge badge-success">3</span></a>
+                            <a class="dropdown-item" href="#">Review <span class="badge badge-info">3</span></a>
+                            <a class="dropdown-item" href="#">In progress <span class="badge badge-warning">3</span></a>
+                            <a class="dropdown-item" href="#">To do <span class="badge badge-danger">3</span></a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">High Priority <span class="badge badge-danger">3</span></a>
+                            <a class="dropdown-item" href="#">Medium Priority <span class="badge badge-warning">3</span></a>
+                            <a class="dropdown-item" href="#">Low Priority <span class="badge badge-info">3</span></a>
+                            <a class="dropdown-item" href="#">No Priority <span class="badge badge-secondary">3</span></a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Zoe <span class="badge badge-info">3</span></a>
+                            <a class="dropdown-item" href="#">YP <span class="badge badge-info">3</span></a>
+                            <a class="dropdown-item" href="#">AG <span class="badge badge-info">3</span></a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dummy link if needed
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </header>
     <main>
         <section id="taskProgress" class="py-2 text-center">
-            <nav>
-                <ul class="nav justify-content-around">
-                    <li class="nav-item">
-                        <a href="/index.html" class="nav-link text-primary rounded my-1 active"
-                            style="background-color: rgba(0, 123, 255, 0.2);">
-                            TOTAL: <span class="font-weight-bold">3</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-success rounded my-1 done">
-                            DONE: <span class="font-weight-bold">3</span>
-                        </a>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-info rounded my-1 review">
-                            REVIEW: <span class="font-weight-bold">3</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-warning rounded my-1 inProgress">
-                            IN PROGRESS: <span class="font-weight-bold">3</span>
-                        </a>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-danger rounded my-1 toDo">
-                            TO DO: <span class="font-weight-bold">3</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
             <div class="row">
                 <div class="col-md-12">
                     <div class="progress mb-2">
