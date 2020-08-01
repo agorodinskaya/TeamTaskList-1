@@ -11,88 +11,70 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
         integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
     <title>Todo list</title>
 </head>
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brandnav-link" data-toggle="porfileSettings" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle fa-3x"></i></a>
-
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-              </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Profile
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="porfileSettings">
+        <nav class="navbar">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Welcome to task planner</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle fa-3x"></i></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="#">Setting</a>
+                            <a class="dropdown-item" href="#">Notifications<span class="badge badge-info">3</span></a>
                             <a class="dropdown-item" href="#">Dashbord</a>
                             <a class="dropdown-item" href="#">Views</a>
-                            <a class="dropdown-item" href="#">Notifications <span class="badge badge-secondary">3</span></a>
                         </div>
-                    </li>
+                    </div>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Filter
-                        </a>
-
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <form class="form-inline my-2 my-lg-0">
-                              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                            </form>
-                            <a class="dropdown-item" href="#">Done <span class="badge badge-success">3</span></a>
-                            <a class="dropdown-item" href="#">Review <span class="badge badge-info">3</span></a>
-                            <a class="dropdown-item" href="#">In progress <span class="badge badge-warning">3</span></a>
-                            <a class="dropdown-item" href="#">To do <span class="badge badge-danger">3</span></a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">High Priority <span class="badge badge-danger">3</span></a>
-                            <a class="dropdown-item" href="#">Medium Priority <span class="badge badge-warning">3</span></a>
-                            <a class="dropdown-item" href="#">Low Priority <span class="badge badge-info">3</span></a>
-                            <a class="dropdown-item" href="#">No Priority <span class="badge badge-secondary">3</span></a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Zoe <span class="badge badge-info">3</span></a>
-                            <a class="dropdown-item" href="#">YP <span class="badge badge-info">3</span></a>
-                            <a class="dropdown-item" href="#">AG <span class="badge badge-info">3</span></a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dummy link if needed
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
                 </ul>
             </div>
         </nav>
     </header>
     <main>
         <section id="taskProgress" class="py-2 text-center">
+            <nav>
+                <ul class="nav justify-content-around">
+                    <!-- <li class="nav-item">
+                        <a href="/index.html" class="nav-link text-primary rounded my-1 active">
+                            TOTAL: <span class="font-weight-bold">3</span>
+                        </a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link text-danger rounded my-1 toDo">
+                            TO DO: <span class="font-weight-bold">3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link text-warning rounded my-1 inProgress">
+                            IN PROGRESS: <span class="font-weight-bold">3</span>
+                        </a>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link text-primary rounded my-1 review">
+                            REVIEW: <span class="font-weight-bold">3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link text-success rounded my-1 done">
+                            DONE: <span class="font-weight-bold">3</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
             <div class="row">
-                <div class="col-md-12">
+                <!-- <div class="col-md-10">
                     <div class="progress mb-2">
                         <div class="progress-bar bg-info w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0"
                             aria-valuemax="100">75%</div>
                     </div>
-                </div>
-                <div class="col-md-12">
-                    <!-- Alert -->
-                    <div class="alert alert-info alert-dismissable show fade" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                        <strong>Well done!</strong> You are almost there
-                    </div>
-                </div>
+                </div> -->
             </div>
         </section>
         <!--New Task Insert-->
@@ -101,7 +83,7 @@
                 <input type="text" class="ml-4 form-control form-control-lg col-8 border-0 bg-light"
                     placeholder="New To-Do">
                 <a href="#newTaskInput" role=button class="btn btn-link col-2 ml-0 pl-0 mb-0 pb-0 text-dark"
-                    data-toggle="modal" data-target="#newTaskInput">
+                    data-toggle="modal" data-target="#newTaskInput" id ="openForm">
                     <h2>+</h2>
                 </a>
             </div>
@@ -112,182 +94,25 @@
             <perfect-scrollbar class="ps-show-limits">
                 <div style="position: static;" class="ps ps--active-y">
                     <div class="ps-content">
-                        <div class="container">
+                        <div class="container" id="tasks">
+
                             <!--First Task-->
-                            <div class="row task" id="task1">
-                                <div class="col-lg-4 col-12 taskTitle order-2 order-lg-1">
-                                    <a href="#task1Description" class="text-secondary icon ml-0 pl-0 small"
+                            <div class="row task">
+                                <div class="col-lg-4 col-12  order-2 order-lg-1 d-flex">
+                                    <a href="#task1Description" class="text-dark icon ml-0 pl-0 small pt-2"
                                     data-toggle="collapse" data-target="#task1Description">
-                                        <h6 class="text-left">WesBos flexbox and flex grid course</h6>
-                                    </a>
-
-
-
-                                </div>
-                                <div class="col-lg-2 col-6 order-3 order-lg-2">
-                                    19/07/2020
-                                </div>
-                                <div class="col-lg-2 col-6 order-4 order-lg-3">
-                                    Yumi Patton
-                                </div>
-                                <div class="col-lg-4 order-1 order-lg-4">
-                                    <ul class="row taskSummary justify-content-around">
-                                        <li class="col">
-
-                                            <i class="far fa-check-circle">
-                                                0/3</i>
-
-                                        </li>
-                                        <li class="col">
-                                            <a href="#newTaskInput" role=button
-                                                class="d-inline btn btn-link col-2 ml-0 pl-0 mb-0 pb-0 text-dark"
-                                                data-toggle="modal" data-target="#newTaskInput">
-                                                <i class="fas fa-edit"></i></a>
-                                        </li>
-                                        <li class="col">
-                                            <span class="dot rounded-circle bg-danger icon"></span>
-                                        </li>
-                                        <li class="col">
-                                            <button class="btn btn-link text-info" data-toggle="modal"
-                                                data-target="#"><i class="fas fa-tag"></i></button>
-                                        </li>
-                                        <li class="col">
-                                            <button type="button" class="ml-0 pl-0 btn btn-link text-dark"><i
-                                                    class="icon far fa-trash-alt"></i></button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!--toggle tasks details-->
-                            <div id="task1Description" class="collapse show">
-                                <div class="card-body">
-                                    <div class="card-body-task">
-                                        <button class="border-0 btn-transition btn btn-outline-success">
-                                            <div class="custom-checkbox custom-control">
-                                                <input type="checkbox" class="border border-info">
-                                            </div>
-                                        </button>
-                                        Anim pariatur cliche reprto-table, raw denim aestheti accusamus labore
-                                        sustainable VHS.
-                                    </div>
-                                    <div class="card-body-task">
-                                        <button class="border-0 btn-transition btn btn-outline-success">
-                                            <div class="custom-checkbox custom-control">
-                                                <input id="task1CheckBox1" type="checkbox">
-                                            </div>
-                                        </button>
-                                        Anim pariatur cliche reprto-table, raw denim aestheti accusamus labore
-                                        sustainable VHS.
-                                    </div>
-                                    <div class="card-body-task">
-                                        <button class="border-0 btn-transition btn btn-outline-success">
-                                            <div class="custom-checkbox custom-control">
-                                                <input id="task1CheckBox1" type="checkbox">
-                                            </div>
-                                        </button>
-                                        Anim pariatur cliche reprto-table, raw denim aestheti accusamus labore
-                                        sustainable VHS.
-                                    </div>
-
-                                </div>
-                                <!--toggle tasks details end-->
-                            </div>
-                            <hr />
-                            <!--Second Task -->
-                            <div class="row task" id="task2">
-                                <div class="col-lg-4 col-12 taskTitle order-2 order-lg-1">
-                                    <a href="#task2Description" class="text-secondary icon ml-0 pl-0 small"
-                                        data-toggle="collapse" data-target="#task2Description">
-                                        <h6 class="text-left">Javascript</h6>
+                                        <h6 class="text">Meet with the team</h6>
                                     </a>
                                 </div>
-                                <div class="col-lg-2 col-6 order-3 order-lg-2">
-                                    20/07/2020
+                                <div class="col-lg-2 col-6 order-3 order-lg-2 pt-2">
+                                    2020-08-05
                                 </div>
-                                <div class="col-lg-2 col-6 order-4 order-lg-3">
-                                    Ana
-                                </div>
-                                <div class="col-lg-4 order-1 order-lg-4">
-                                    <ul class="row taskSummary justify-content-around">
-                                        <li class="col">
-                                            <i class="far fa-check-circle"> 0/3</i>
-                                        </li>
-                                        <li class="col">
-                                            <a href="#newTaskInput" role=button
-                                                class="d-inline btn btn-link col-2 ml-0 pl-0 mb-0 pb-0 text-dark"
-                                                data-toggle="modal" data-target="#newTaskInput">
-                                                <i class="fas fa-edit"></i></a>
-                                        </li>
-                                        <li class="col">
-                                            <span class="dot rounded-circle bg-danger icon"></span>
-                                        </li>
-                                        <li class="col">
-                                            <button class="btn btn-link text-info" data-toggle="modal"
-                                                data-target="#"><i class="fas fa-tag"></i></button>
-                                        </li>
-
-                                        <li class="col">
-                                            <button type="button" class="ml-0 pl-0 btn btn-link text-dark"><i
-                                                    class="icon far fa-trash-alt"></i></button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!--toggle tasks details-->
-                            <div id="task2Description" class="collapse show">
-                                <div class="card-body">
-                                    <div class="card-body-task">
-                                        <button class="border-0 btn-transition btn btn-outline-success">
-                                            <div class="custom-checkbox custom-control">
-                                                <input id="task1CheckBox1" type="checkbox">
-                                            </div>
-                                        </button>
-                                        Anim pariatur cliche reprto-table, raw denim aestheti accusamus labore
-                                        sustainable VHS.
-                                    </div>
-                                    <div class="card-body-task">
-                                        <button class="border-0 btn-transition btn btn-outline-success">
-                                            <div class="custom-checkbox custom-control">
-                                                <input id="task1CheckBox1" type="checkbox">
-                                            </div>
-                                        </button>
-                                        Anim pariatur cliche reprto-table, raw denim aestheti accusamus labore
-                                        sustainable VHS.
-                                    </div>
-                                    <div class="card-body-task">
-                                        <button class="border-0 btn-transition btn btn-outline-success">
-                                            <div class="custom-checkbox custom-control">
-                                                <input id="task1CheckBox1" type="checkbox">
-                                            </div>
-                                        </button>
-                                        Anim pariatur cliche reprto-table, raw denim aestheti accusamus labore
-                                        sustainable VHS.
-                                    </div>
-                                </div>
-                                <!--toggle tasks details end-->
-                            </div>
-                            <hr />
-                            <!--Third Task List-->
-                            <div class="row task" id="task3">
-                                <div class="col-lg-4 col-12 taskTitle order-2 order-lg-1">
-                                    <a href="#task3Description" class="text-secondary icon ml-0 pl-0 small"
-                                        data-toggle="collapse" data-target="#task3Description">
-                                        <h6 class="text-left">
-                                            WesBos flexbox and flex grid course</h6>
-                                    </a>
-                                </div>
-                                <div class="col-lg-2 col-6 order-3 order-lg-2">
-                                    22/07/2020
-                                </div>
-                                <div class="col-lg-2 col-6 order-4 order-lg-3">
+                                <div class="col-lg-2 col-6 order-4 order-lg-3 pt-2">
                                     Zoe
                                 </div>
                                 <div class="col-lg-4 order-1 order-lg-4">
                                     <ul class="row taskSummary justify-content-around">
-                                        <li class="col">
-                                            <i class="far fa-check-circle"> 0/3</i>
-
-                                        </li>
+                                        
                                         <li class="col">
                                             <a href="#newTaskInput" role=button
                                                 class="d-inline btn btn-link col-2 ml-0 pl-0 mb-0 pb-0 text-dark"
@@ -309,41 +134,146 @@
                                 </div>
                             </div>
                             <!--toggle tasks details-->
-                            <div id="task3Description" class="collapse show">
+                            <div id="task1Description" class="collapse hide">
                                 <div class="card-body">
                                     <div class="card-body-task">
-                                        <button class="border-0 btn-transition btn btn-outline-success">
-                                            <div class="custom-checkbox custom-control">
-                                                <input id="task1CheckBox1" type="checkbox">
-                                            </div>
-                                        </button>
-                                        Anim pariatur cliche reprto-table, raw denim aestheti accusamus labore
-                                        sustainable VHS.
+                                        Discuss the to-do app project.
                                     </div>
-                                    <div class="card-body-task">
-                                        <button class="border-0 btn-transition btn btn-outline-success">
-                                            <div class="custom-checkbox custom-control">
-                                                <input id="task1CheckBox1" type="checkbox">
-                                            </div>
-                                        </button>
-                                        Anim pariatur cliche reprto-table, raw denim aestheti accusamus labore
-                                        sustainable VHS.
-                                    </div>
-                                    <div class="card-body-task">
-                                        <button class="border-0 btn-transition btn btn-outline-success">
-                                            <div class="custom-checkbox custom-control">
-                                                <input id="task1CheckBox1" type="checkbox">
-                                            </div>
-                                        </button>
-                                        Anim pariatur cliche reprto-table, raw denim aestheti accusamus labore
-                                        sustainable VHS.
-                                    </div>
-
                                 </div>
-                                <!--toggle tasks details-->
                             </div>
-                            <hr />
 
+                            <!--Second Task-->
+                            <div class="row task">
+                                <div class="col-lg-4 col-12  order-2 order-lg-1">
+                                    <a href="#task2Description" class="text-dark icon ml-0 pl-0 small"
+                                    data-toggle="collapse" data-target="#task2Description">
+                                        <h6 class="text-left pt-2">Learn Grid</h6>
+                                    </a>
+                                </div>
+                                <div class="col-lg-2 col-6 order-3 order-lg-2 pt-2">
+                                    2020-08-17
+                                </div>
+                                <div class="col-lg-2 col-6 order-4 order-lg-3 pt-2">
+                                    Zoe
+                                </div>
+                                <div class="col-lg-4 order-1 order-lg-4">
+                                    <ul class="row taskSummary justify-content-around">
+                                        
+                                        <li class="col">
+                                            <a href="#newTaskInput" role=button
+                                                class="d-inline btn btn-link col-2 ml-0 pl-0 mb-0 pb-0 text-dark"
+                                                data-toggle="modal" data-target="#newTaskInput">
+                                                <i class="fas fa-edit"></i></a>
+                                        </li>
+                                        <li class="col">
+                                            <span class="dot rounded-circle bg-danger icon"></span>
+                                        </li>
+                                        <li class="col">
+                                            <button class="btn btn-link text-info" data-toggle="modal"
+                                                data-target="#"><i class="fas fa-tag"></i></button>
+                                        </li>
+                                        <li class="col">
+                                            <button type="button" class="ml-0 pl-0 btn btn-link text-dark"><i
+                                                    class="icon far fa-trash-alt"></i></button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="task2Description" class="collapse hide">
+                                <div class="card-body">
+                                    <div class="card-body-task">
+                                        Complete Wes Bos Grid course.
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Third Task-->
+                            <div class="row task">
+                                <div class="col-lg-4 col-12  order-2 order-lg-1">
+                                    <a href="#task3Description" class="text-dark icon ml-0 pl-0 small"
+                                    data-toggle="collapse" data-target="#task3Description">
+                                        <h6 class="text-left  pt-2">Learn Flexbox</h6>
+                                    </a>
+                                </div>
+                                <div class="col-lg-2 col-6 order-3 order-lg-2 pt-2">
+                                    2020-08-17
+                                </div>
+                                <div class="col-lg-2 col-6 order-4 order-lg-3 pt-2">
+                                    Zoe
+                                </div>
+                                <div class="col-lg-4 order-1 order-lg-4">
+                                    <ul class="row taskSummary justify-content-around">
+                                        
+                                        <li class="col">
+                                            <a href="#newTaskInput" role=button
+                                                class="d-inline btn btn-link col-2 ml-0 pl-0 mb-0 pb-0 text-dark"
+                                                data-toggle="modal" data-target="#newTaskInput">
+                                                <i class="fas fa-edit"></i></a>
+                                        </li>
+                                        <li class="col">
+                                            <span class="dot rounded-circle bg-danger icon"></span>
+                                        </li>
+                                        <li class="col">
+                                            <button class="btn btn-link text-info" data-toggle="modal"
+                                                data-target="#"><i class="fas fa-tag"></i></button>
+                                        </li>
+                                        <li class="col">
+                                            <button type="button" class="ml-0 pl-0 btn btn-link text-dark"><i
+                                                    class="icon far fa-trash-alt"></i></button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="task3Description" class="collapse hide">
+                                <div class="card-body">
+                                    <div class="card-body-task">
+                                        Complete Wes Bos Flexbox course.
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Third Task-->
+                            <div class="row task">
+                                <div class="col-lg-4 col-12  order-2 order-lg-1">
+                                    <a href="#task4Description" class="text-dark icon ml-0 pl-0 small"
+                                    data-toggle="collapse" data-target="#task4Description">
+                                        <h6 class="text-left  pt-2">Learn JavaScript</h6>
+                                    </a>
+                                </div>
+                                <div class="col-lg-2 col-6 order-3 order-lg-2 pt-2">
+                                    2020-08-17
+                                </div>
+                                <div class="col-lg-2 col-6 order-4 order-lg-3 pt-2">
+                                    Zoe
+                                </div>
+                                <div class="col-lg-4 order-1 order-lg-4">
+                                    <ul class="row taskSummary justify-content-around">
+                                        
+                                        <li class="col">
+                                            <a href="#newTaskInput" role=button
+                                                class="d-inline btn btn-link col-2 ml-0 pl-0 mb-0 pb-0 text-dark"
+                                                data-toggle="modal" data-target="#newTaskInput">
+                                                <i class="fas fa-edit"></i></a>
+                                        </li>
+                                        <li class="col">
+                                            <span class="dot rounded-circle bg-danger icon"></span>
+                                        </li>
+                                        <li class="col">
+                                            <button class="btn btn-link text-info" data-toggle="modal"
+                                                data-target="#"><i class="fas fa-tag"></i></button>
+                                        </li>
+                                        <li class="col">
+                                            <button type="button" class="ml-0 pl-0 btn btn-link text-dark"><i
+                                                    class="icon far fa-trash-alt"></i></button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="task4Description" class="collapse hide">
+                                <div class="card-body">
+                                    <div class="card-body-task">
+                                        Complete Wes Bos Javascript course.
+                                    </div>
+                                </div>
+                            </div>                                                      
                         </div>
                     </div>
                 </div>
@@ -363,7 +293,11 @@
                 <i class="icon far fa-trash-alt"></i></button>
         </form>
     </footer>
-    <!-- form -->
+
+
+
+
+    <!-- Modal for new Task -->
     <div class="modal fade" id="newTaskInput">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -373,114 +307,124 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form>
+                <form class="need-validation" novalidate>
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="taskTitle">Title</label>
-                            <input class="form-control" type="text" id="taskTitle" name="taskTitle" value="JavaScript">
+                            <input class="form-control" type="name" id="taskTitle" name="taskTitle"  required>
+                            <div class="valid-feedback">You've successfully entered the task title.</div>
+                            <div class="invalid-feedback">It must be longer than 8 characters.</div>
                         </div>
                         <div class="row">
                             <div class="form-group col-lg-6 form-row">
                                 <label class="col-4 col-form-label" for="taskDueDate">Due Date:</label>
-                                <input class="col-8 form-control" class="color" type="date" id="taskDueDate"
-                                    name="taskDueDate">
+                                <input class="col-8 form-control" class="color" type="date" id="taskDate" name="taskDate">
+                                <div class="valid-feedback">You've successfully entered the due date.</div>
+                                <div class="invalid-feedback">It must not be earlier than today.</div>
                             </div>
                             <div class="form-group col-lg-6 form-row">
-                                <label class="col-4 col-form-label" for="taskAssignedTo">Assigned to:</label>
-                                <input class="col-8 form-control" type="text" id="taskAssignedTo" name="taskAssignedTo">
+                                <label class="col-4 col-form-label" for="taskAssignee">Assigned to:</label>
+                                <input class="col-8 form-control" type="text" id="taskAssignee" name="taskAssignee">
+                                <div class="valid-feedback">You've successfully assigned a person to the task.</div>
+                                <div class="invalid-feedback">It must be longer than 8 characters.</div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="taskDescription">Task Detail</label>
-                            <textarea class="form-control" id="taskDescription">Editable Text</textarea>
+                            <textarea class="form-control" id="taskDescription"></textarea>
+                            <div class="valid-feedback">You've successfully entered the task details.</div>
+                            <div class="invalid-feedback">It must be longer than 15 characters.</div>
                         </div>
-                        <p class="text-center"><button
-                                class="btn btn-outline-primary btn-lg border-0 font-weight-bold shadow"
-                                data-toggle="collapse" href="#selectPriority" type="button">!!! Priority</button>
+                        <p class="text-center">
                             <button class="btn btn-outline-primary btn-lg border-0 font-weight-bold shadow"
-                                data-toggle="collapse" href="#selectStatus" type="button"><i
+                                data-toggle="collapse" href="#taskPriority" type="button">!!! Priority</button>
+                            <button class="btn btn-outline-primary btn-lg border-0 font-weight-bold shadow"
+                                data-toggle="collapse" href="#taskStatus" type="button"><i
                                     class="icon fas fa-tag"></i>Status</button></p>
-                        <!-- select priority -->
-                        <div class="collapse" id="selectPriority">
-                            <div class="card card-body">
-                                <p>
-                                    Set priority of your task
-                                </p>
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" id="highPriority" name="priority" class="custom-control-input"
-                                        value="4">
-                                    <label class="custom-control-label font-weight-bold text-danger"
-                                        for="highPriority">!!!
-                                        High Priority</label>
-                                </div>
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" id="mediumPriority" name="priority" class="custom-control-input"
-                                        value="3">
-                                    <label class="custom-control-label font-weight-bold text-warning"
-                                        for="mediumPriority">!! Medium Priority</label>
-                                </div>
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" id="lowPriority" name="priority" class="custom-control-input"
-                                        value="2">
-                                    <label class="custom-control-label font-weight-bold text-info" for="lowPriority">!
-                                        Low
-                                        Priority</label>
-                                </div>
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" id="noPriority" name="priority" class="custom-control-input"
-                                        value="1">
-                                    <label class="custom-control-label font-weight-bold text-dark" for="noPriority">
-                                        No
-                                        Priority</label>
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- select priority end -->
-                        <!-- select Status -->
-                        <div class="collapse" id="selectStatus">
-                            <div class="card card-body">
-                                <p>
-                                    Record your progress
-                                </p>
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" id="statusDone" name="status" class="custom-control-input"
-                                        value="done">
-                                    <label class="custom-control-label font-weight-bold text-success"
-                                        for="statusDone"><i class="icon fas fa-tag"></i> Done</label>
-                                </div>
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" id="statusReview" name="status" class="custom-control-input"
-                                        value="review">
-                                    <label class="custom-control-label font-weight-bold text-info" for="statusReview"><i
-                                            class="icon fas fa-tag"></i> Review</label>
-                                </div>
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" id="statusInProgress" name="status" class="custom-control-input"
-                                        value="inProgress">
-                                    <label class="custom-control-label font-weight-bold text-warning"
-                                        for="statusInProgress"><i class="icon fas fa-tag"></i> In Progress</label>
-                                </div>
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" id="statusToDo" name="status" class="custom-control-input"
-                                        value="toDo">
-                                    <label class="custom-control-label font-weight-bold text-danger" for="statusToDo">
-                                        <i class="icon fas fa-tag"></i> To Do</label>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- select priority end -->
-                        <!-- select Status -->
+                                    <div class="collapse" id="taskPriority">
+                                        <div class="card card-body">
+                                            <p>
+                                                Set priority of your task
+                                            </p>
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="highPriority" name="priority" class="custom-control-input"
+                                                    value="bg-danger">
+                                                <label class="custom-control-label font-weight-bold text-danger"
+                                                    for="highPriority">!!!
+                                                    High Priority</label>
+                                            </div>
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="mediumPriority" name="priority" class="custom-control-input"
+                                                    value="bg-warning">
+                                                <label class="custom-control-label font-weight-bold text-warning"
+                                                    for="mediumPriority">!! Medium Priority</label>
+                                            </div>
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="lowPriority" name="priority" class="custom-control-input"
+                                                    value="bg-info">
+                                                <label class="custom-control-label font-weight-bold text-info" for="lowPriority">!
+                                                    Low
+                                                    Priority</label>
+                                            </div>
+                                            <!-- <div class="custom-control custom-radio">
+                                                <input type="radio" id="noPriority" name="priority" class="custom-control-input"
+                                                    value="bg-success">
+                                                <label class="custom-control-label font-weight-bold text-success" for="noPriority">
+                                                    No
+                                                    Priority</label>
+                                            </div> -->
+                                        </div>
+            
+                                    </div>
+                                    <!-- select priority end -->
+                                    <!-- select Status -->
+                                    <div class="collapse" id="taskStatus">
+                                        <div class="card card-body">
+                                            <p>
+                                                Record your progress
+                                            </p>
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="statusDone" name="status" class="custom-control-input"
+                                                    value="text-success">
+                                                <label class="custom-control-label font-weight-bold text-success"
+                                                    for="statusDone"><i class="icon fas fa-tag"></i> Done</label>
+                                            </div>
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="statusReview" name="status" class="custom-control-input"
+                                                    value="text-info">
+                                                <label class="custom-control-label font-weight-bold text-info" for="statusReview"><i
+                                                        class="icon fas fa-tag"></i> Review</label>
+                                            </div>
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="statusInProgress" name="status" class="custom-control-input"
+                                                    value="text-warning">
+                                                <label class="custom-control-label font-weight-bold text-warning"
+                                                    for="statusInProgress"><i class="icon fas fa-tag"></i> In Progress</label>
+                                            </div>
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="statusToDo" name="status" class="custom-control-input"
+                                                    value="text-danger">
+                                                <label class="custom-control-label font-weight-bold text-danger" for="statusToDo">
+                                                    <i class="icon fas fa-tag"></i> To Do</label>
+                                            </div>
+                                        </div>
+                                    </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary shadow" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary shadow" data-dismiss="modal">Save</button>
+                            <button id="taskSave" type="button" class="btn btn-primary shadow">Save</button>
                         </div>
                     </div>
                 </form>
+
+
             </div>
         </div>
     </div>
-    <!--form modal end-->
+    <!-- modal for new task end-->
+
+     
+
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -492,6 +436,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
     </script>
+    <script src="script.js"></script>
 </body>
 
 </html>
