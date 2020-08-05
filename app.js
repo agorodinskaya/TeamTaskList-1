@@ -68,6 +68,9 @@ class TaskManager{
     addTask(task) {
         this.currentID++;
         this.tasks.push(task);
+        this.refreshPage();
+        this.clearValues();
+        this.clearValidations()
     }
     addTaskToPage(task){
         document.querySelector("#tasks").append(task.toHtmlElement());
@@ -88,9 +91,33 @@ class TaskManager{
             this.deleteTask(task);
             displayDelete.closest("div.task").remove();
         });
+    }
+    deleteAll() {
+        document.querySelector("#deleteAll").addEventListener("click", function () {
+            this.tasks.length = 0;
+            this.clearAll();
+        });
+    }
+    editTask(task) {
+        this.tasks.splice(findTaskIndex(task), 1, task);
+?
+        // this.stats();
+    }
+    refreshPage() {
+        this.clearAll();
+        this.tasks.forEach(task => this.addTaskToPage(task));
+    }
+
+    clearAll() {
+        document.querySelector("#tasks").innerHTML = "";
     } 
+
 }
 
+document.createRange().createContextualFragment(html).toHtmlElement().querySelector('#binForOne').addEventListener("click", function () {
+    this.deleteTask(task);
+    event.target.closest("div.task").remove();
+});
 
 //form.name. 
 const taskForm = document.querySelector("#taskForm");
@@ -171,6 +198,7 @@ function saveButtonClicked(event) {
     } else {
         alert("Please complete the form");
     }
+
 }
 
 const formCancel = taskForm.querySelector("#cancelButton");
