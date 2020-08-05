@@ -1,3 +1,5 @@
+const taskContainer = document.querySelector('#tasks')
+
 class Task{
         constructor(title, description, assignee, date, priority, status, taskID) {
             this.title = title;
@@ -61,19 +63,22 @@ class Task{
 }
 
 class TaskManager{
-    constructor(){
+    constructor(taskContainer){
         this.tasks = [];
         this.currentID = 1;
+        this.taskContainer = taskContainer;
     }
     addTask(task) {
         this.currentID++;
         this.tasks.push(task);
+        this.addTaskToPage();
     }
-    addTaskToPage(task){
-        document.querySelector("#tasks").append(task.toHtmlElement());
-        $(function () { 
-            $('[data-toggle="tooltip"]').tooltip()
-        });
+    addTaskToPage(){
+        this.taskContainer.innerHTML = "";
+        this.tasks.forEach(task => this.taskContainer.append(task.toHtmlElement()));
+        // $(function () { 
+        //     $('[data-toggle="tooltip"]').tooltip()
+        // });
     }
     findTaskIndex(task) {
         this.tasks.findIndex(taskInTasks => (taskInTasks.id == task.id));
@@ -244,32 +249,32 @@ const task1 = new Task("Wesbos JS",
     "01/08/2020",
     "YP",
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quisquam consequatur commodi non vitae harum autem quibusdam quam ratione deserunt!",
-    "high",
-    "done",
+    "bg-info",
+    "text-warning",
     1);
 const task2 = new Task("Validation form",
     "01/08/2020",
     "Zoe",
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quisquam consequatur commodi non vitae harum autem quibusdam quam ratione deserunt!",
-    "medium",
-    "inProgress",
+    "bg-danger",
+    "text-info",
     2);
 const task3 = new Task("Canvas",
     "01/08/2020",
     "YP",
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quisquam consequatur commodi non vitae harum autem quibusdam quam ratione deserunt!",
-    "high",
-    "review",
+    "bg-dark",
+    "text-danger",
     4);
 const task4 = new Task("Debrief on next steps with Yumi and Zoe",
     "01/08/2020",
     "AG",
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quisquam consequatur commodi non vitae harum autem quibusdam quam ratione deserunt!",
-    "low",
-    "review",
+    "bg-warning",
+    "text-success",
     4);
 
-const taskmanager = new TaskManager();
+const taskmanager = new TaskManager(taskContainer);
     
     taskmanager.addTask(task1)
     taskmanager.addTask(task2)
