@@ -1,5 +1,3 @@
-const taskContainer = document.querySelector('#tasks')
-
 class Task{
         constructor(title, description, assignee, date, priority, status, taskID) {
             this.title = title;
@@ -63,29 +61,24 @@ class Task{
 }
 
 class TaskManager{
-    constructor(taskContainer){
+    constructor(){
         this.tasks = [];
         this.currentID = 1;
-        this.taskContainer = taskContainer;
     }
     addTask(task) {
         this.currentID++;
         this.tasks.push(task);
-<<<<<<< HEAD
         this.refreshPage();
         this.clearValues();
         this.clearValidations()
-||||||| 58c65b1
-=======
-        this.addTaskToPage();
->>>>>>> cf0c2bf1abb982d008dbaf921ba01f788d47a289
     }
-    addTaskToPage(){
-        this.taskContainer.innerHTML = "";
-        this.tasks.forEach(task => this.taskContainer.append(task.toHtmlElement()));
-        // $(function () { 
-        //     $('[data-toggle="tooltip"]').tooltip()
-        // });
+    addTaskToPage(task){
+        document.querySelector("#tasks").append(task.toHtmlElement());
+        
+
+        $(function () { 
+            $('[data-toggle="tooltip"]').tooltip()
+        });
     }
     findTaskIndex(task) {
         this.tasks.findIndex(taskInTasks => (taskInTasks.id == task.id));
@@ -109,8 +102,9 @@ class TaskManager{
     }
     editTask(task) {
         this.tasks.splice(findTaskIndex(task), 1, task);
-?
-        // this.stats();
+        this.refreshPage();
+        this.clearValues();
+        this.clearValidations();
     }
     refreshPage() {
         this.clearAll();
@@ -281,32 +275,32 @@ const task1 = new Task("Wesbos JS",
     "01/08/2020",
     "YP",
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quisquam consequatur commodi non vitae harum autem quibusdam quam ratione deserunt!",
-    "bg-info",
-    "text-warning",
+    "high",
+    "done",
     1);
 const task2 = new Task("Validation form",
     "01/08/2020",
     "Zoe",
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quisquam consequatur commodi non vitae harum autem quibusdam quam ratione deserunt!",
-    "bg-danger",
-    "text-info",
+    "medium",
+    "inProgress",
     2);
 const task3 = new Task("Canvas",
     "01/08/2020",
     "YP",
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quisquam consequatur commodi non vitae harum autem quibusdam quam ratione deserunt!",
-    "bg-dark",
-    "text-danger",
+    "high",
+    "review",
     4);
 const task4 = new Task("Debrief on next steps with Yumi and Zoe",
     "01/08/2020",
     "AG",
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quisquam consequatur commodi non vitae harum autem quibusdam quam ratione deserunt!",
-    "bg-warning",
-    "text-success",
+    "low",
+    "review",
     4);
 
-const taskmanager = new TaskManager(taskContainer);
+const taskmanager = new TaskManager();
     
     taskmanager.addTask(task1)
     taskmanager.addTask(task2)
