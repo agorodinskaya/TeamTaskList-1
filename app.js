@@ -67,10 +67,8 @@ class TaskManager{
         this.taskID = 0;
     }
     addTask(task) {
-        
         task.id = this.taskID++;
         this.tasks.push(task);
-        //this.refreshPage();
         clearValues();
         clearValidations()
         return JSON.stringify(task);
@@ -128,6 +126,7 @@ class TaskManager{
         const taskElement = document.createRange().createContextualFragment(html);
         //const taskElement = task.toHtmlElement();
         console.log(taskElement);
+
         taskElement.querySelector('#binForOne').addEventListener("click", (e) => this.deleteTaskOnPage(e));
         taskElement.querySelector('#editTaskButton').addEventListener("click", (e) => this.editTaskOnPage(e));
         document.querySelector("#tasks").append(taskElement);
@@ -150,8 +149,8 @@ class TaskManager{
     }
     deleteAll() {
 
-            this.tasks.length = 0;
-            this.clearAll();
+        this.tasks.length = 0;
+        this.clearAll();
 
     }
     editTask(task) {
@@ -176,8 +175,17 @@ class TaskManager{
     }
     refreshPage() {
         this.clearAll();
+        this.getTotal();
+    }
+    getTotal(){
         this.tasks.forEach(task => this.addTaskToPage(JSON.stringify(task)));
     }
+    // getStatsOfStatus() {
+    //     const statusMap = selectStatus.map( 
+    //     this.tasks.filter(task => task.status === status.value)
+    //     )
+    //     return statusMap;
+    // }
 
     clearAll() {
         document.querySelector("#tasks").innerHTML = "";
@@ -340,6 +348,7 @@ function validationTaskForm(title, description, assignee, date, priority, status
     }
     return false;
 }
+
 // DUMMY TASKS://///////////////////////////////////////////////////////////////////////////////////////////////
 
 // const task1 = new Task("Wesbos JS",
