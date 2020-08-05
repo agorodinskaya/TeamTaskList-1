@@ -60,16 +60,19 @@ class Task{
 }
 
 class TaskManager{
+    selectPriority = [...document.forms.taskForm.querySelectorAll("input[name=priority]")];
+    selectStatus = [...document.forms.taskForm.querySelectorAll("input[name=status]")];
     constructor(){
         this.tasks = [];
-        this.currentID = 1;
+        this.taskID = 0;
     }
     addTask(task) {
-        this.currentID++;
+        
+        task.id = this.taskID++;
         this.tasks.push(task);
         //this.refreshPage();
-        // this.clearValues();
-        // this.clearValidations()
+        clearValues();
+        clearValidations()
         return JSON.stringify(task);
     }
     addTaskToPage(taskJSON){
@@ -126,7 +129,7 @@ class TaskManager{
         //const taskElement = task.toHtmlElement();
         console.log(taskElement);
         taskElement.querySelector('#binForOne').addEventListener("click", (e) => this.deleteTaskOnPage(e));
-
+        taskElement.querySelector('#editTaskButton').addEventListener("click", (e) => this.editTaskOnPage(e));
         document.querySelector("#tasks").append(taskElement);
 
         $(function () { 
@@ -143,7 +146,7 @@ class TaskManager{
     deleteTaskOnPage(event){
         this.deleteTask(event.target.closest("div.task").id);
             event.target.closest("div.task").remove();
-            //this.refreshPage();
+            this.refreshPage();
     }
     deleteAll() {
 
@@ -152,15 +155,29 @@ class TaskManager{
 
     }
     editTask(task) {
-        this.tasks.splice(findTaskIndex(task), 1, task);
+        this.tasks.splice(this.findTaskIndex(task), 1, task);
         this.refreshPage();
-        // this.clearValues();
-        // this.clearValidations();
+        clearValues();
+        clearValidations();
     }
-    // refreshPage() {
-    //     this.clearAll();
-    //     this.tasks.forEach(task => this.addTaskToPage(task));
-    // }
+    editTaskOnPage(event){
+        clearValues();
+        clearValidations();
+        console.log(event.target.closest("div.task").id);
+        const task = this.tasks.find( task => task.id == event.target.closest("div.task").id);
+        console.log(task);
+        document.forms.taskForm.classList.add(task.id);
+        document.forms.taskForm.taskTitle.value = task.title;
+        document.forms.taskForm.taskDescription.value = task.description;
+        document.forms.taskForm.taskAssignedTo.value = task.assignee;
+        document.forms.taskForm.taskDueDate.value = task.date;
+        selectPriority.find(priority => priority.value === task.priority).checked = true;
+        selectStatus.find(status => status.value === task.status).checked = true;
+    }
+    refreshPage() {
+        this.clearAll();
+        this.tasks.forEach(task => this.addTaskToPage(JSON.stringify(task)));
+    }
 
     clearAll() {
         document.querySelector("#tasks").innerHTML = "";
@@ -247,7 +264,7 @@ function saveButtonClicked(event) {
             };
             console.log("debugging review ", task);
             console.log(taskForm.classList.item(0)); //class list is still there remove all after use
-            editTask(task);
+            taskmanager.editTask(task);
             console.log("debugging review ", task);
             taskForm.classList.remove(`${id}`);
         }
