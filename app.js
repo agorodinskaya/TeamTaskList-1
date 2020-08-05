@@ -11,7 +11,7 @@ class Task{
         toHtmlElement() {
             const html = `
         <div class="task" id="task${this.id}">
-            <div class="row task" id="task1">
+            <div class="row task" id=${this.id}>
                 <div class="col-lg-4 col-12 taskTitle order-2 order-lg-1">
                     <a href="#task${this.id}Description" class="text-secondary icon ml-0 pl-0 small"
                         data-toggle="collapse" data-target="#task${this.id}Description">
@@ -69,12 +69,16 @@ class TaskManager{
         this.currentID++;
         this.tasks.push(task);
         this.refreshPage();
-        this.clearValues();
-        this.clearValidations()
+        // this.clearValues();
+        // this.clearValidations()
     }
     addTaskToPage(task){
-        document.querySelector("#tasks").append(task.toHtmlElement());
-        
+        const taskElement = task.toHtmlElement();
+        taskElement
+            .querySelector('#binForOne')
+            .addEventListener("click", (e) => this.deleteTaskOnPage(e));
+
+        document.querySelector("#tasks").append(taskElement);
 
         $(function () { 
             $('[data-toggle="tooltip"]').tooltip()
@@ -87,24 +91,22 @@ class TaskManager{
         const taskIndex = this.findTaskIndex(task);
         this.tasks.splice(taskIndex, 1);
     }
-    deleteTaskOnPage(task){
-        const displayDelete = task.toHtmlElement().querySelector('#binForOne');
-        displayDelete.addEventListener("click", function () {
-            this.deleteTask(task);
-            displayDelete.closest("div.task").remove();
-        });
+    deleteTaskOnPage(event){
+        this.deleteTask(event.target.closest("div.task").id);
+            event.target.closest("div.task").remove();
+            this.refreshPage();
     }
     deleteAll() {
-        document.querySelector("#deleteAll").addEventListener("click", function () {
+
             this.tasks.length = 0;
             this.clearAll();
-        });
+
     }
     editTask(task) {
         this.tasks.splice(findTaskIndex(task), 1, task);
         this.refreshPage();
-        this.clearValues();
-        this.clearValidations();
+        // this.clearValues();
+        // this.clearValidations();
     }
     refreshPage() {
         this.clearAll();
@@ -114,13 +116,16 @@ class TaskManager{
     clearAll() {
         document.querySelector("#tasks").innerHTML = "";
     } 
-
 }
 
-document.createRange().createContextualFragment(html).toHtmlElement().querySelector('#binForOne').addEventListener("click", function () {
-    this.deleteTask(task);
-    event.target.closest("div.task").remove();
+const taskmanager1 = new TaskManager();
+
+document.querySelector("#deleteAll").addEventListener("click", function () { 
+    taskmanager1.deleteAll();
 });
+
+
+
 
 //form.name. 
 const taskForm = document.querySelector("#taskForm");
@@ -160,7 +165,6 @@ function clearValidations() {
 
 taskForm.addEventListener("submit", saveButtonClicked);
 
-const taskmanager1 = new TaskManager();
 
 function saveButtonClicked(event) {
     event.preventDefault();
