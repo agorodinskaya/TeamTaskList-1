@@ -170,7 +170,7 @@ class TaskManager{
 const taskmanager = new TaskManager();
 
 document.querySelector("#deleteAll").addEventListener("click", function () { 
-    taskmanager1.deleteAll();
+    taskmanager.deleteAll();
 });
 
 
