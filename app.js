@@ -8,56 +8,55 @@ class Task{
             this.status = status;
             this.taskID = null;
         }
-        toHtmlElement() {
-            const html = `
-        <div class="task" id="task${this.id}">
-            <div class="row task" id=${this.id}>
-                <div class="col-lg-4 col-12 taskTitle order-2 order-lg-1">
-                    <a href="#task${this.id}Description" class="text-secondary icon ml-0 pl-0 small"
-                        data-toggle="collapse" data-target="#task${this.id}Description">
-                        <h6 class="text-left">${this.title}</h6>
-                    </a>
+        // toHtmlElement() {
+        //     const html = `
+        // <div class="task" id="task${this.id}">
+        //     <div class="row task" id=${this.id}>
+        //         <div class="col-lg-4 col-12 taskTitle order-2 order-lg-1">
+        //             <a href="#task${this.id}Description" class="text-secondary icon ml-0 pl-0 small"
+        //                 data-toggle="collapse" data-target="#task${this.id}Description">
+        //                 <h6 class="text-left">${this.title}</h6>
+        //             </a>
 
-                </div>
-                <div class="col-lg-2 col-6 order-3 order-lg-2">
-                    ${this.date}
-                </div>
-                <div class="col-lg-2 col-6 order-4 order-lg-3">
-                   ${this.assignee}
-                </div>
-                <div class="col-lg-4 order-1 order-lg-4">
-                    <ul class="row taskSummary justify-content-around">
-                        <li class="col">
-                            <a href="#newTaskInput" id = "editTaskButton" role= "button"
-                                class="d-inline btn btn-link col-2 ml-0 pl-0 mb-0 pb-0 text-dark"
-                                data-toggle="modal" data-target="#newTaskInput">
-                                <i class="fas fa-edit"></i></a>
-                        </li>
-                        <li class="col">
-                        <span class="dot rounded-circle ${this.priority} icon" data-toggle="tooltip" data-placement="top" title="Priority"></span>
-                        </li>
-                        <li class="col">
-                            <i class="icon fas fa-tag ${this.status}" data-toggle="tooltip" data-placement="top" title="Status"></i>
-                        </li>
-                        <li class="col">
-                            <button id="binForOne" type="button" class="ml-0 pl-0 btn btn-link text-dark"><i
-                                    class="icon far fa-trash-alt"></i></button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div >
-                <!--toggle tasks details-->
-                <div id ="task${this.id}Description" class = "collapse" >
-                ${this.description}
-                </div>
-                <!--toggle tasks details end-->
-            </div>
-            <hr />
-        </div>`;
-            return document.createRange().createContextualFragment(html);
-        }
-
+        //         </div>
+        //         <div class="col-lg-2 col-6 order-3 order-lg-2">
+        //             ${this.date}
+        //         </div>
+        //         <div class="col-lg-2 col-6 order-4 order-lg-3">
+        //            ${this.assignee}
+        //         </div>
+        //         <div class="col-lg-4 order-1 order-lg-4">
+        //             <ul class="row taskSummary justify-content-around">
+        //                 <li class="col">
+        //                     <a href="#newTaskInput" id = "editTaskButton" role= "button"
+        //                         class="d-inline btn btn-link col-2 ml-0 pl-0 mb-0 pb-0 text-dark"
+        //                         data-toggle="modal" data-target="#newTaskInput">
+        //                         <i class="fas fa-edit"></i></a>
+        //                 </li>
+        //                 <li class="col">
+        //                 <span class="dot rounded-circle ${this.priority} icon" data-toggle="tooltip" data-placement="top" title="Priority"></span>
+        //                 </li>
+        //                 <li class="col">
+        //                     <i class="icon fas fa-tag ${this.status}" data-toggle="tooltip" data-placement="top" title="Status"></i>
+        //                 </li>
+        //                 <li class="col">
+        //                     <button id="binForOne" type="button" class="ml-0 pl-0 btn btn-link text-dark"><i
+        //                             class="icon far fa-trash-alt"></i></button>
+        //                 </li>
+        //             </ul>
+        //         </div>
+        //     </div>
+        //     <div >
+        //         <!--toggle tasks details-->
+        //         <div id ="task${this.id}Description" class = "collapse" >
+        //         ${this.description}
+        //         </div>
+        //         <!--toggle tasks details end-->
+        //     </div>
+        //     <hr />
+        // </div>`;
+        //     return document.createRange().createContextualFragment(html);
+        // }
 }
 
 class TaskManager{
@@ -68,15 +67,65 @@ class TaskManager{
     addTask(task) {
         this.currentID++;
         this.tasks.push(task);
-        this.refreshPage();
+        //this.refreshPage();
         // this.clearValues();
         // this.clearValidations()
+        return JSON.stringify(task);
     }
-    addTaskToPage(task){
-        const taskElement = task.toHtmlElement();
-        taskElement
-            .querySelector('#binForOne')
-            .addEventListener("click", (e) => this.deleteTaskOnPage(e));
+    addTaskToPage(taskJSON){
+        const task = JSON.parse(taskJSON);
+        console.log(task);
+        //const task = new Task(taskParsed);
+        const html = `
+        <div class="task" id="${task.id}">
+            <div class="row">
+                <div class="col-lg-4 col-12 taskTitle order-2 order-lg-1">
+                    <a href="#task${task.id}Description" class="text-secondary icon ml-0 pl-0 small"
+                        data-toggle="collapse" data-target="#task${task.id}Description">
+                        <h6 class="text-left">${task.title}</h6>
+                    </a>
+
+                </div>
+                <div class="col-lg-2 col-6 order-3 order-lg-2">
+                    ${task.date}
+                </div>
+                <div class="col-lg-2 col-6 order-4 order-lg-3">
+                   ${task.assignee}
+                </div>
+                <div class="col-lg-4 order-1 order-lg-4">
+                    <ul class="row taskSummary justify-content-around">
+                        <li class="col">
+                            <a href="#newTaskInput" id = "editTaskButton" role= "button"
+                                class="d-inline btn btn-link col-2 ml-0 pl-0 mb-0 pb-0 text-dark"
+                                data-toggle="modal" data-target="#newTaskInput">
+                                <i class="fas fa-edit"></i></a>
+                        </li>
+                        <li class="col">
+                        <span class="dot rounded-circle ${task.priority} icon" data-toggle="tooltip" data-placement="top" title="Priority"></span>
+                        </li>
+                        <li class="col">
+                            <i class="icon fas fa-tag ${task.status}" data-toggle="tooltip" data-placement="top" title="Status"></i>
+                        </li>
+                        <li class="col">
+                            <button id="binForOne" type="button" class="ml-0 pl-0 btn btn-link text-dark"><i
+                                    class="icon far fa-trash-alt"></i></button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div >
+                <!--toggle tasks details-->
+                <div id ="task${task.id}Description" class = "collapse" >
+                ${task.description}
+                </div>
+                <!--toggle tasks details end-->
+            </div>
+            <hr />
+        </div>`;
+        const taskElement = document.createRange().createContextualFragment(html);
+        //const taskElement = task.toHtmlElement();
+        console.log(taskElement);
+        taskElement.querySelector('#binForOne').addEventListener("click", (e) => this.deleteTaskOnPage(e));
 
         document.querySelector("#tasks").append(taskElement);
 
@@ -94,7 +143,7 @@ class TaskManager{
     deleteTaskOnPage(event){
         this.deleteTask(event.target.closest("div.task").id);
             event.target.closest("div.task").remove();
-            this.refreshPage();
+            //this.refreshPage();
     }
     deleteAll() {
 
@@ -108,17 +157,17 @@ class TaskManager{
         // this.clearValues();
         // this.clearValidations();
     }
-    refreshPage() {
-        this.clearAll();
-        this.tasks.forEach(task => this.addTaskToPage(task));
-    }
+    // refreshPage() {
+    //     this.clearAll();
+    //     this.tasks.forEach(task => this.addTaskToPage(task));
+    // }
 
     clearAll() {
         document.querySelector("#tasks").innerHTML = "";
     } 
 }
 
-const taskmanager1 = new TaskManager();
+const taskmanager = new TaskManager();
 
 document.querySelector("#deleteAll").addEventListener("click", function () { 
     taskmanager1.deleteAll();
@@ -182,7 +231,8 @@ function saveButtonClicked(event) {
     if (validationTaskForm(title, description, assignee, date, priority, status)) {
         if (!taskForm.classList.item(0)) {
             const task = new Task(title, description, assignee, date, priority, status);
-            taskmanager1.addTaskToPage(task);
+            const taskJSON = taskmanager.addTask(task);
+            taskmanager.addTaskToPage(taskJSON);
             console.log(taskForm.classList.item(0));
         } else {
             const id = taskForm.classList.item(0);
@@ -275,27 +325,27 @@ function validationTaskForm(title, description, assignee, date, priority, status
 }
 // DUMMY TASKS://///////////////////////////////////////////////////////////////////////////////////////////////
 
-const task1 = new Task("Wesbos JS",
-    "01/08/2020",
-    "YP",
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quisquam consequatur commodi non vitae harum autem quibusdam quam ratione deserunt!",
-    "high",
-    "done",
-    1);
-const task2 = new Task("Validation form",
-    "01/08/2020",
-    "Zoe",
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quisquam consequatur commodi non vitae harum autem quibusdam quam ratione deserunt!",
-    "medium",
-    "inProgress",
-    2);
-const task3 = new Task("Canvas",
-    "01/08/2020",
-    "YP",
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quisquam consequatur commodi non vitae harum autem quibusdam quam ratione deserunt!",
-    "high",
-    "review",
-    4);
+// const task1 = new Task("Wesbos JS",
+//     "01/08/2020",
+//     "YP",
+//     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quisquam consequatur commodi non vitae harum autem quibusdam quam ratione deserunt!",
+//     "high",
+//     "done",
+//     1);
+// const task2 = new Task("Validation form",
+//     "01/08/2020",
+//     "Zoe",
+//     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quisquam consequatur commodi non vitae harum autem quibusdam quam ratione deserunt!",
+//     "medium",
+//     "inProgress",
+//     2);
+// const task3 = new Task("Canvas",
+//     "01/08/2020",
+//     "YP",
+//     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quisquam consequatur commodi non vitae harum autem quibusdam quam ratione deserunt!",
+//     "high",
+//     "review",
+//     4);
 const task4 = new Task("Debrief on next steps with Yumi and Zoe",
     "01/08/2020",
     "AG",
@@ -304,17 +354,23 @@ const task4 = new Task("Debrief on next steps with Yumi and Zoe",
     "review",
     4);
 
-const taskmanager = new TaskManager();
+//const taskmanager = new TaskManager();
     
-    taskmanager.addTask(task1)
-    taskmanager.addTask(task2)
-    taskmanager.addTask(task3)
-    taskmanager.addTask(task4)
+    // taskmanager.addTask(task1)
+    // taskmanager.addTask(task2)
+    // taskmanager.addTask(task3)
+    // taskmanager.addTask(task4)
 
 
-
-
-
+// taskmanager.addTaskToPage({
+//     "title": "\"Wesbos JS\";",
+//     "description": "\"Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quisquam consequatur commodi non vitae harum autem quibusdam quam ratione deserunt!\";",
+//     "this.assignee": "\"YP\";",
+//     "this.date": "\"01/08/2020\";",
+//     "this.priority": "\"bg-danger\";",
+//     "this.status": "\"text-info\";",
+//     "this.taskID": "\"1\";"
+// });
 
 
 
