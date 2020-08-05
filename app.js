@@ -69,6 +69,12 @@ class TaskManager{
         this.currentID++;
         this.tasks.push(task);
     }
+    addTaskToPage(task){
+        document.querySelector("#tasks").append(task.toHtmlElement());
+        $(function () { 
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+    }
     findTaskIndex(task) {
         this.tasks.findIndex(taskInTasks => (taskInTasks.id == task.id));
     }
@@ -76,7 +82,13 @@ class TaskManager{
         const taskIndex = this.findTaskIndex(task);
         this.tasks.splice(taskIndex, 1);
     }
-
+    deleteTaskOnPage(task){
+        const displayDelete = task.toHtmlElement().querySelector('#binForOne');
+        displayDelete.addEventListener("click", function () {
+            this.deleteTask(task);
+            displayDelete.closest("div.task").remove();
+        });
+    } 
 }
 
 
@@ -118,6 +130,8 @@ function clearValidations() {
 
 taskForm.addEventListener("submit", saveButtonClicked);
 
+const taskmanager1 = new TaskManager();
+
 function saveButtonClicked(event) {
     event.preventDefault();
     //console.log("check ID in saveButtonClicked "+temp);
@@ -134,7 +148,7 @@ function saveButtonClicked(event) {
     if (validationTaskForm(title, description, assignee, date, priority, status)) {
         if (!taskForm.classList.item(0)) {
             const task = new Task(title, description, assignee, date, priority, status);
-            task.toHtmlElement();
+            taskmanager1.addTaskToPage(task);
             console.log(taskForm.classList.item(0));
         } else {
             const id = taskForm.classList.item(0);
@@ -224,3 +238,51 @@ function validationTaskForm(title, description, assignee, date, priority, status
     }
     return false;
 }
+// DUMMY TASKS://///////////////////////////////////////////////////////////////////////////////////////////////
+
+const task1 = new Task("Wesbos JS",
+    "01/08/2020",
+    "YP",
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quisquam consequatur commodi non vitae harum autem quibusdam quam ratione deserunt!",
+    "high",
+    "done",
+    1);
+const task2 = new Task("Validation form",
+    "01/08/2020",
+    "Zoe",
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quisquam consequatur commodi non vitae harum autem quibusdam quam ratione deserunt!",
+    "medium",
+    "inProgress",
+    2);
+const task3 = new Task("Canvas",
+    "01/08/2020",
+    "YP",
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quisquam consequatur commodi non vitae harum autem quibusdam quam ratione deserunt!",
+    "high",
+    "review",
+    4);
+const task4 = new Task("Debrief on next steps with Yumi and Zoe",
+    "01/08/2020",
+    "AG",
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quisquam consequatur commodi non vitae harum autem quibusdam quam ratione deserunt!",
+    "low",
+    "review",
+    4);
+
+const taskmanager = new TaskManager();
+    
+    taskmanager.addTask(task1)
+    taskmanager.addTask(task2)
+    taskmanager.addTask(task3)
+    taskmanager.addTask(task4)
+
+
+
+
+
+
+
+
+
+
+
