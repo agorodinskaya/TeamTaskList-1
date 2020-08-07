@@ -228,7 +228,13 @@ class TaskManager{
                 }, 1000);
               
             } else {
-                this.alertModalSetup("Please update the items", "alert-danger");
+                this.alertModalSetup("Please complete the form", "alert-danger");
+                console.log(alertModal)
+                const smallText = document.querySelectorAll('.smallText');
+                smallText.forEach(small => small.classList.add('text-danger'));
+                setTimeout(function () {
+                    smallText.forEach(small => small.classList.remove('text-danger'));
+                }, 1500);
                 
             }
         }
