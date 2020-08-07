@@ -99,7 +99,7 @@ const newToDo = document.querySelector("#newToDo");
 const openNewTask = document.querySelector("#openForm");
 
 class TaskManager{
-    constructor(newToDo, openNewTask, taskModalSaveBtn, alert, alertModal, taskContainer, taskForm, taskTitle, taskDescription, taskAssignedTo, taskDueDate, selectPriority, selectStatus){
+    constructor(newToDo, openNewTask, taskModalSaveBtn, alert, alertModal, taskContainer, taskForm, taskTitle, taskDescription, taskAssignedTo, taskDueDate, priorities, progress){
         this.tasks = [];
         this.id = 0;
         this.newToDo = newToDo;
@@ -115,6 +115,8 @@ class TaskManager{
         this.taskDueDate = taskDueDate;
         this.selectPriority = selectPriority;
         this.selectStatus = selectStatus;
+        this.priorities = priorities;
+        this.progress = progress
     }
         addTask(title, description, assignee, date, priority, status) {
             const task = new Task(title, description, assignee, date, priority, status);
@@ -167,8 +169,8 @@ class TaskManager{
             taskModalSaveBtn.classList.remove('btn-danger');
             taskModalSaveBtn.classList.add('btn-primary');
             taskDetails.map(item => item.value = null);
-            selectPriority.map(priority => priority.checked = false);
-            selectStatus.map(status => status.checked = false)
+            priorities.map(priority => priority.checked = false);
+            progress.map(status => status.checked = false)
         }
 
         clearValidations() {
@@ -182,20 +184,36 @@ class TaskManager{
             const assignee = taskAssignedTo.value;
             const date = taskDueDate.value;
             //select Priority , select Status
-            let priority = selectPriority.find(priority => priority.checked).value;
+            // let priority = selectPriority.find(priority => priority.checked).value;
 
-            let status = selectStatus.find(status => status.checked).value;
+            // let status = selectStatus.find(status => status.checked).value;
+            let checkedPriority;
+            for (let i = 0; i < priorities.length; i++) {
+                if (priorities[i].checked) {
+                    checkedPriority = priorities[i].value;
+                    // console.log(typeof checkedPriority, checkedPriority);
 
+                }
+            }
+
+            let checkedProgress;
+            for (let i = 0; i < progress.length; i++) {
+                if (progress[i].checked) {
+                    checkedProgress = progress[i].value;
+                    // console.log(typeof checkedProgress, checkedProgress);
+                    //returns values done, toDo, inProgress or review;
+                }
+            }
             //let task = {title,description,assignee, date, priority, status, id};
-            if (this.validationTaskForm(title, description, assignee, date, priority, status)) {
+            if (this.validationTaskForm(title, description, assignee, date, checkedPriority, checkedProgress)) {
                 if (taskForm.getAttribute('data-id') === null) {
-                    const task = new Task(title, description, assignee, date, priority, status);
+                    const task = new Task(title, description, assignee, date, checkedPriority, checkedProgress);
                     this.addTask(task);
                     // this.addTaskToPage(task);
                     console.log("I'm here! validation task form new input!");
                     taskForm.removeAttribute('data-id');
                 } else {
-                    const task = new Task(title, description, assignee, date, priority, status);
+                    const task = new Task(title, description, assignee, date, checkedPriority, checkedProgress);
                     task.id = Number(taskForm.getAttribute('data-id'));
                     console.log("debugging review validation task update!", task);
                     console.log(taskForm.getAttribute('data-id')); //class list is still there remove all after use
@@ -308,7 +326,6 @@ class TaskManager{
             // const today = this.todayConvertor();
             if (this.notEmptyandLongerThan(title, 8) && this.notEmptyandLongerThan(description, 15) &&
                 this.notEmptyandLongerThan(assignee, 8) && dueDate && priority && status) {
-                    console.log('HELLO')
                 return   true;
             }
             
@@ -357,10 +374,10 @@ function removeTaskFormId() {
     taskForm.removeAttribute('data-id');
 }
 
-//init class:
+//init class: ***************************************************************************************************
 const taskmanager = new TaskManager(newToDo, openNewTask, taskModalSaveBtn, alert, alertModal, taskContainer, taskForm, taskTitle, taskDescription, taskAssignedTo, taskDueDate, selectPriority, selectStatus);
 //=================================================================================================================
-// **********************Events*****************************************************************************
+// **********************Events***********************************************************************************
 //=================================================================================================================
 
 //Open modal:
