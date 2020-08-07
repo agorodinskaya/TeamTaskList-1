@@ -85,9 +85,22 @@ const newToDo = document.querySelector("#newToDo");
 const openNewTask = document.querySelector("#openForm");
 
 class TaskManager{
-    constructor(){
+    constructor(newToDo, openNewTask, taskModalSaveBtn, alert, alertModal, taskContainer, taskForm, taskTitle, taskDescription, taskAssignedTo, taskDueDate, selectPriority, selectStatus){
         this.tasks = [];
         this.id = 0;
+        this.newToDo = newToDo;
+        this.openNewTask = openNewTask;
+        this.taskModalSaveBtn = taskModalSaveBtn;
+        this.alert = alert;
+        this.alertModal = alertModal;
+        this.taskContainer = taskContainer;
+        this.taskForm = taskForm;
+        this.taskTitle = taskTitle;
+        this.taskDescription = taskDescription;
+        this.taskAssignedTo = taskAssignedTo;
+        this.taskDueDate = taskDueDate;
+        this.selectPriority = selectPriority;
+        this.selectStatus = selectStatus;
     }
         addTask(title, description, assignee, date, priority, status) {
             const task = new Task(title, description, assignee, date, priority, status);
@@ -342,7 +355,7 @@ class TaskManager{
                 this.deleteAll();
             })
         }
-}
+}   
 
 
 
@@ -361,7 +374,7 @@ function removeTaskFormId() {
     taskForm.removeAttribute('data-id');
 }
 
-const taskmanager = new TaskManager();
+const taskmanager = new TaskManager(newToDo, openNewTask, taskModalSaveBtn, alert, alertModal, taskContainer, taskForm, taskTitle, taskDescription, taskAssignedTo, taskDueDate, selectPriority, selectStatus);
 
 //Priority 
 
