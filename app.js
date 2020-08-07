@@ -122,11 +122,17 @@ class TaskManager{
             task.id ++;
             // console.log("addtask", task.id);
             this.tasks.push(task);
-            this.display()
+            // this.display()
             
             // stats()
+        
+        } display() {
+            this.clearAll();
+            this.tasks.forEach(task => this.addTaskToPage(task));
         }
-
+        clearAll() {
+            taskContainer.innerHTML = "";
+        } 
         //taskForm UI start
         addTaskToPage(task){
             const taskElement = task.toHtmlElement();
@@ -138,14 +144,8 @@ class TaskManager{
             $(function () { 
                 $('[data-toggle="tooltip"]').tooltip()
             });
-            
-        } display() {
-            clearAll();
-            this.tasks.forEach(task => this.addTaskToPage(task));
-        }
-        clearAll() {
-            taskContainer.innerHTML = "";
-        } 
+        }   
+        
         openModal(){
             openNewTask.addEventListener("click", function() {
             this.clearValues();
@@ -187,27 +187,27 @@ class TaskManager{
 
             //let task = {title,description,assignee, date, priority, status, id};
             if (this.validationTaskForm(title, description, assignee, date, priority, status)) {
-                // if (taskForm.getAttribute('data-id') === null) {
+                if (taskForm.getAttribute('data-id') === null) {
                     const task = new Task(title, description, assignee, date, priority, status);
                     this.addTask(task);
-                    // this.addTaskToPage(task);
+                    this.addTaskToPage(task);
                     console.log("I'm here! validation task form new input!");
-                    // taskForm.removeAttribute('data-id');
-                // } else {
-                //     const task = new Task(title, description, assignee, date, priority, status);
-                //     task.id = Number(taskForm.getAttribute('data-id'));
-                //     console.log("debugging review validation task update!", task);
-                //     console.log(taskForm.getAttribute('data-id')); //class list is still there remove all after use
+                    taskForm.removeAttribute('data-id');
+                } else {
+                    const task = new Task(title, description, assignee, date, priority, status);
+                    task.id = Number(taskForm.getAttribute('data-id'));
+                    console.log("debugging review validation task update!", task);
+                    console.log(taskForm.getAttribute('data-id')); //class list is still there remove all after use
 
-                //     this.editTask(task);
-                //     console.log("debugging review ", this.tasks);
-                //     taskForm.removeAttribute('data-id');
-                // }
+                    this.editTask(task);
+                    console.log("debugging review ", this.tasks);
+                    taskForm.removeAttribute('data-id');
+                }
                 this.alertModalSetup("Item successfully updated", "alert-success");
                 setTimeout(function () {
                     $("#newTaskInput").modal("hide"); // set data-modal ...
                 }, 1000);
-               
+              
             } else {
                 this.alertModalSetup("Please update the items", "alert-danger");
                 
@@ -219,8 +219,8 @@ class TaskManager{
             this.display();
         }
         editButtonClicked(event) {
-            clearValues();
-            clearValidations();
+            this.clearValues();
+            this.clearValidations();
 
             console.log(event.target.closest("div.task").id);
             
@@ -365,7 +365,7 @@ const taskmanager = new TaskManager(newToDo, openNewTask, taskModalSaveBtn, aler
 // save button : 
     taskForm.addEventListener("submit", function(event){
         event.preventDefault();
-        taskmanager.formFilledOut(e);
+        taskmanager.formFilledOut(event);
     })
 // checkTitle(){
     taskTitle.addEventListener("input", function (event) {
