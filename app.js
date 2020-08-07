@@ -72,12 +72,26 @@ const taskContainer = document.querySelector("#tasks")
 //form.name. 
 const taskForm = document.querySelector("#taskForm");
 //TaskDetails
-const taskTitle = document.forms.taskForm.taskTitle;
+const taskTitle = document.querySelector("#taskTitle");
 const taskDescription = document.forms.taskForm.taskDescription;
 const taskAssignedTo = document.forms.taskForm.taskAssignedTo;
 const taskDueDate = document.forms.taskForm.taskDueDate;
 const taskDetails = [taskTitle, taskDescription, taskAssignedTo, taskDueDate];
 //Priority && Status
+// priorities creating an array of options: 
+const high = document.querySelector('#highPriority');
+const medium = document.querySelector('#mediumPriority');
+const low = document.querySelector('#lowPriority');
+const nopriority = document.querySelector('#noPriority');
+let priorities = [high, medium, low, nopriority];
+
+//progress :
+const done = document.querySelector('#statusDone');
+const review = document.querySelector('#statusReview');
+const inprogress = document.querySelector('#statusInProgress');
+const todo = document.querySelector('#statusToDo');
+let progress = [done, review, inprogress, todo];
+
 const selectPriority = [...document.forms.taskForm.querySelectorAll("input[name=priority]")];
 const selectStatus = [...document.forms.taskForm.querySelectorAll("input[name=status]")];
 
@@ -106,7 +120,7 @@ class TaskManager{
             const task = new Task(title, description, assignee, date, priority, status);
             task.id = this.id;
             task.id ++;
-            console.log("addtask", task.id);
+            // console.log("addtask", task.id);
             this.tasks.push(task);
             this.display()
             
@@ -159,53 +173,45 @@ class TaskManager{
         clearValidations() {
             taskDetails.map(item => item.classList.remove("is-invalid", "is-valid"));
         }
-        prioritySelected() {
-        return selectPriority.find(priority => priority.checked).value;
-        }
-        statusSelected() {
-            return selectStatus.find(status => status.checked).value;
-        }
-        saveButtonClicked() {
-            
-            taskForm.addEventListener("click", function (e){
-            e.preventDefault()
-            
+        formFilledOut() {
+           
             //console.log("check ID in saveButtonClicked "+temp);
             const title = taskTitle.value;
-            console.log(title)
             const description = taskDescription.value;
             const assignee = taskAssignedTo.value;
             const date = taskDueDate.value;
             //select Priority , select Status
-            const priority = this.prioritySelected();
-            const status = this.statusSelected();
+            let priority = selectPriority.find(priority => priority.checked).value;
+
+            let status = selectStatus.find(status => status.checked).value;
 
             //let task = {title,description,assignee, date, priority, status, id};
             if (this.validationTaskForm(title, description, assignee, date, priority, status)) {
-                if (taskForm.getAttribute('data-id') === null) {
+                // if (taskForm.getAttribute('data-id') === null) {
                     const task = new Task(title, description, assignee, date, priority, status);
                     this.addTask(task);
                     // this.addTaskToPage(task);
                     console.log("I'm here! validation task form new input!");
-                    taskForm.removeAttribute('data-id');
-                } else {
-                    const task = new Task(title, description, assignee, date, priority, status);
-                    task.id = Number(taskForm.getAttribute('data-id'));
-                    console.log("debugging review validation task update!", task);
-                    console.log(taskForm.getAttribute('data-id')); //class list is still there remove all after use
+                    // taskForm.removeAttribute('data-id');
+                // } else {
+                //     const task = new Task(title, description, assignee, date, priority, status);
+                //     task.id = Number(taskForm.getAttribute('data-id'));
+                //     console.log("debugging review validation task update!", task);
+                //     console.log(taskForm.getAttribute('data-id')); //class list is still there remove all after use
 
-                    this.editTask(task);
-                    console.log("debugging review ", this.tasks);
-                    taskForm.removeAttribute('data-id');
-                }
+                //     this.editTask(task);
+                //     console.log("debugging review ", this.tasks);
+                //     taskForm.removeAttribute('data-id');
+                // }
                 this.alertModalSetup("Item successfully updated", "alert-success");
                 setTimeout(function () {
                     $("#newTaskInput").modal("hide"); // set data-modal ...
                 }, 1000);
+               
             } else {
-                alert("Please complete the form");
+                this.alertModalSetup("Please update the items", "alert-danger");
+                
             }
-        })
         }
         deleteTaskOnPage(event) {
             this.deleteTask(event.target.closest("div.task").id);
@@ -278,29 +284,7 @@ class TaskManager{
         //     });
         //     return priorityStats;
         // }
-        checkTitle(){
-            taskTitle.addEventListener("input", function(event) {
-                
-                this.validation(event.target, this.notEmptyandLongerThan(event.target.value, 8));
-            })
-        }
-        checkDescription(){
-            taskDescription.addEventListener("input", function(event) {
-                this.validation(event.target, this.notEmptyandLongerThan(event.target.value, 15));
-            })
-        } 
-        checkAssignee(){
-            taskAssignedTo.addEventListener("input", function(event) {
-                this.validation(event.target, this.notEmptyandLongerThan(event.target.value, 8));
-            })
-        }
-        checkDueDate(){   
-            taskDueDate.addEventListener("input", function(event) {
-                const today = this.todayConvertor();
-                const dueDate = new Date(event.target.value);
-                this.validation(event.target, today <= dueDate);
-            })
-        }
+        
         todayConvertor() {
             const today = new Date();
             return today.setHours(0, 0, 0, 0);
@@ -317,7 +301,7 @@ class TaskManager{
         }
 
         notEmptyandLongerThan(taskItem, number) {
-            taskItem && taskItem.length > number;
+            return taskItem && taskItem.length > number;
         }
 
         validationTaskForm(title, description, assignee, date, priority, status) {
@@ -326,7 +310,7 @@ class TaskManager{
             if (this.notEmptyandLongerThan(title, 8) && this.notEmptyandLongerThan(description, 15) &&
                 this.notEmptyandLongerThan(assignee, 8) && dueDate && priority && status) {
                     console.log('HELLO')
-                return true;
+                return   true;
             }
             
         return false;
@@ -374,7 +358,38 @@ function removeTaskFormId() {
     taskForm.removeAttribute('data-id');
 }
 
+//init class:
 const taskmanager = new TaskManager(newToDo, openNewTask, taskModalSaveBtn, alert, alertModal, taskContainer, taskForm, taskTitle, taskDescription, taskAssignedTo, taskDueDate, selectPriority, selectStatus);
+
+// Event
+// save button : 
+    taskForm.addEventListener("submit", function(event){
+        event.preventDefault();
+        taskmanager.formFilledOut(e);
+    })
+// checkTitle(){
+    taskTitle.addEventListener("input", function (event) {
+        taskmanager.validation(event.target, taskmanager.notEmptyandLongerThan(event.target.value, 8));
+    })
+// }
+// checkDescription(){
+    taskDescription.addEventListener("input", function (event) {
+        taskmanager.validation(event.target, taskmanager.notEmptyandLongerThan(event.target.value, 15));
+    })
+// }
+// checkAssignee(){
+    taskAssignedTo.addEventListener("input", function (event) {
+        taskmanager.validation(event.target, taskmanager.notEmptyandLongerThan(event.target.value, 8));
+    })
+// }
+// checkDueDate(){
+    taskDueDate.addEventListener("input", function (event) {
+        const today = taskmanager.todayConvertor();
+        const dueDate = new Date(event.target.value);
+        taskmanager.validation(event.target, today <= dueDate);
+    })
+// }
+
 
 //Priority 
 
