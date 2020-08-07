@@ -1,3 +1,9 @@
+/// Question : 
+// 1.where is it better to move our declarations ? 
+// 2. 
+
+
+
 class Task{
         constructor(title, description, assignee, date, priority, status, id) {
             this.title = title;
@@ -58,111 +64,10 @@ class Task{
             return document.createRange().createContextualFragment(html);
         }
 }
-
-class TaskManager{
-    constructor(){
-        this.tasks = [];
-        this.id = 0;
-    }
-    //taskForm UI start
-    addTaskToPage(task){
-        const taskElement = task.toHtmlElement();
-        taskElement.querySelector('#binForOne').addEventListener("click", (e) => this.deleteTaskOnPage(e));
-        taskElement.querySelector('#editTaskButton').addEventListener("click", (e) => this.editButtonClicked(e));
-        document.querySelector("#tasks").append(taskElement);
-
-        $(function () { 
-            $('[data-toggle="tooltip"]').tooltip()
-        });
-    }
-    deleteTaskOnPage(event) {
-        this.deleteTask(event.target.closest("div.task").id);
-        event.target.closest("div.task").remove();
-        this.display();
-    }
-    editButtonClicked(event) {
-        clearValues();
-        clearValidations();
-        console.log(event.target.closest("div.task").id);
-        const task = this.tasks.find(task => task.id == event.target.closest("div.task").id);
-
-        document.forms.taskForm.setAttribute("data-id", task.id);
-        document.forms.taskForm.taskTitle.value = task.title;
-        document.forms.taskForm.taskDescription.value = task.description;
-        document.forms.taskForm.taskAssignedTo.value = task.assignee;
-        document.forms.taskForm.taskDueDate.value = task.date;
-        selectPriority.find(priority => priority.value === task.priority).checked = true;
-        selectStatus.find(status => status.value === task.status).checked = true;
-    }
-    // taskForm UI end
-    addTask(task) {
-        this.id += 1;
-        task.id = this.id;
-        console.log("addtask", task.id);
-        this.tasks.push(task);
-        clearValues();
-        clearValidations()
-        stats()
-    }
-
-    findTaskIndex(task) {
-        return this.tasks.findIndex(taskInTasks => (task.id === taskInTasks.id));
-    }
-
-    editTask(task) {
-        clearAll();
-        const taskIndex = this.findTaskIndex(task);
-        //console.log("editTaskfilte working? taskIndex", taskIndex);
-        this.tasks.splice(taskIndex, 1, task);
-        //console.log("editTaskfilte working?", this.tasks);
-        this.display();
-        clearValues();
-        clearValidations();
-        stats();
-    }
-
-    deleteTask(task) {
-        const taskIndex = this.findTaskIndex(task);
-        this.tasks.splice(taskIndex, 1);
-        stats() 
-    }
-
-    deleteAll() {
-        this.tasks.length = 0;
-        clearAll();
-    }
-
-    display() {
-        clearAll();
-        this.tasks.forEach(task => this.addTaskToPage(task));
-    }
-    displayByItem(filteredItem){
-        clearAll();
-        filteredItem.forEach(task => this.addTaskToPage(task));
-    }
-    getStatsOfStatus() {
-        const statusStats =[] 
-        selectStatus.forEach(status => {
-            statusStats.push(this.tasks.filter(task=> task.status === status.value));
-        }); 
-        return statusStats;                                                                                        
-    }
-    getStatsOfPriority() {
-        const priorityStats = []
-        selectPriority.forEach(priority => {
-            priorityStats.push(this.tasks.filter(task => task.priority === priority.value));
-        });
-        return priorityStats;
-    }
-
-
-}
-
-function clearAll() {
-    document.querySelector("#tasks").innerHTML = "";
-} 
-
-const taskmanager = new TaskManager();
+const taskModalSaveBtn = document.querySelector('#task-modal-save');
+const alert = document.querySelector(".alert")
+const alertModal = document.querySelector(".alertModal");
+const taskContainer = document.querySelector("#tasks")
 
 //form.name. 
 const taskForm = document.querySelector("#taskForm");
@@ -178,65 +83,274 @@ const selectStatus = [...document.forms.taskForm.querySelectorAll("input[name=st
 
 const newToDo = document.querySelector("#newToDo");
 const openNewTask = document.querySelector("#openForm");
-openNewTask.addEventListener("click", function () {
-    clearValues();
-    clearValidations();
-    taskTitle.value = newToDo.value;
-    if (taskTitle.value && taskTitle.value.length > 8) {
-        taskTitle.classList.add("is-valid");
-    } else {
-        taskTitle.classList.add("is-invalid");
+
+class TaskManager{
+    constructor(){
+        this.tasks = [];
+        this.id = 0;
     }
-    newToDo.value = null;
-});
+        addTask(title, description, assignee, date, priority, status) {
+            const task = new Task(title, description, assignee, date, priority, status);
+            task.id = this.id;
+            task.id ++;
+            console.log("addtask", task.id);
+            this.tasks.push(task);
+            this.display()
+            
+            // stats()
+        }
 
-function clearValues() {
-    taskDetails.map(item => item.value = null);
-    selectPriority.map(priority => priority.checked = false);
-    selectStatus.map(status => status.checked = false)
+        //taskForm UI start
+        addTaskToPage(task){
+            const taskElement = task.toHtmlElement();
+            taskElement.querySelector('#binForOne').addEventListener("click", (e) => this.deleteTaskOnPage(e));
+            taskElement.querySelector('#editTaskButton').addEventListener("click", (e) => this.editButtonClicked(e));
+            document.querySelector("#tasks").append(taskElement);
+            this.clearValues();
+            this.clearValidations()
+            $(function () { 
+                $('[data-toggle="tooltip"]').tooltip()
+            });
+            
+        } display() {
+            clearAll();
+            this.tasks.forEach(task => this.addTaskToPage(task));
+        }
+        clearAll() {
+            taskContainer.innerHTML = "";
+        } 
+        openModal(){
+            openNewTask.addEventListener("click", function() {
+            this.clearValues();
+            this.clearValidations();
+            taskTitle.value = newToDo.value;
+            if (taskTitle.value && taskTitle.value.length > 8) {
+                taskTitle.classList.add("is-valid");
+            } else {
+                taskTitle.classList.add("is-invalid");
+            }
+            newToDo.value = null;
+            
+        })
+        }
+
+        clearValues() {
+            taskModalSaveBtn.textContent = "HELLO";
+            taskModalSaveBtn.classList.remove('btn-danger');
+            taskModalSaveBtn.classList.add('btn-primary');
+            taskDetails.map(item => item.value = null);
+            selectPriority.map(priority => priority.checked = false);
+            selectStatus.map(status => status.checked = false)
+        }
+
+        clearValidations() {
+            taskDetails.map(item => item.classList.remove("is-invalid", "is-valid"));
+        }
+        prioritySelected() {
+        return selectPriority.find(priority => priority.checked).value;
+        }
+        statusSelected() {
+            return selectStatus.find(status => status.checked).value;
+        }
+        saveButtonClicked() {
+            
+            taskForm.addEventListener("click", function (e){
+            e.preventDefault()
+            
+            //console.log("check ID in saveButtonClicked "+temp);
+            const title = taskTitle.value;
+            console.log(title)
+            const description = taskDescription.value;
+            const assignee = taskAssignedTo.value;
+            const date = taskDueDate.value;
+            //select Priority , select Status
+            const priority = this.prioritySelected();
+            const status = this.statusSelected();
+
+            //let task = {title,description,assignee, date, priority, status, id};
+            if (this.validationTaskForm(title, description, assignee, date, priority, status)) {
+                if (taskForm.getAttribute('data-id') === null) {
+                    const task = new Task(title, description, assignee, date, priority, status);
+                    this.addTask(task);
+                    // this.addTaskToPage(task);
+                    console.log("I'm here! validation task form new input!");
+                    taskForm.removeAttribute('data-id');
+                } else {
+                    const task = new Task(title, description, assignee, date, priority, status);
+                    task.id = Number(taskForm.getAttribute('data-id'));
+                    console.log("debugging review validation task update!", task);
+                    console.log(taskForm.getAttribute('data-id')); //class list is still there remove all after use
+
+                    this.editTask(task);
+                    console.log("debugging review ", this.tasks);
+                    taskForm.removeAttribute('data-id');
+                }
+                this.alertModalSetup("Item successfully updated", "alert-success");
+                setTimeout(function () {
+                    $("#newTaskInput").modal("hide"); // set data-modal ...
+                }, 1000);
+            } else {
+                alert("Please complete the form");
+            }
+        })
+        }
+        deleteTaskOnPage(event) {
+            this.deleteTask(event.target.closest("div.task").id);
+            event.target.closest("div.task").remove();
+            this.display();
+        }
+        editButtonClicked(event) {
+            clearValues();
+            clearValidations();
+
+            console.log(event.target.closest("div.task").id);
+            
+            taskModalSaveBtn.textContent = "Edit";
+            taskModalSaveBtn.classList.add('btn-danger');
+            const task = this.tasks.find(task => task.id == event.target.closest("div.task").id);
+
+            document.forms.taskForm.setAttribute("data-id", task.id);
+            document.forms.taskForm.taskTitle.value = task.title;
+            document.forms.taskForm.taskDescription.value = task.description;
+            document.forms.taskForm.taskAssignedTo.value = task.assignee;
+            document.forms.taskForm.taskDueDate.value = task.date;
+            selectPriority.find(priority => priority.value === task.priority).checked = true;
+            selectStatus.find(status => status.value === task.status).checked = true;
+        }
+        // taskForm UI end
+        
+        findTaskIndex(task) {
+            this.tasks.findIndex(taskInTasks => (task.id === taskInTasks.id));
+        }
+
+        editTask(task) {
+            clearAll();
+            const taskIndex = this.findTaskIndex(task);
+            //console.log("editTaskfilte working? taskIndex", taskIndex);
+            this.tasks.splice(taskIndex, 1, task);
+            //console.log("editTaskfilte working?", this.tasks);
+            this.display();
+            clearValues();
+            clearValidations();
+            stats();
+        }
+
+        deleteTask(task) {
+            const taskIndex = this.findTaskIndex(task);
+            this.tasks.splice(taskIndex, 1);
+            stats() 
+        }
+
+        deleteAll() {
+            this.tasks.length = 0;
+            clearAll();
+        }
+
+        
+        // displayByItem(filteredItem){
+        //     clearAll();
+        //     filteredItem.forEach(task => this.addTaskToPage(task));
+        // }
+        // getStatsOfStatus() {
+        //     const statusStats =[] 
+        //     selectStatus.forEach(status => {
+        //         statusStats.push(this.tasks.filter(task=> task.status === status.value));
+        //     }); 
+        //     return statusStats;                                                                                        
+        // }
+        // getStatsOfPriority() {
+        //     const priorityStats = []
+        //     selectPriority.forEach(priority => {
+        //         priorityStats.push(this.tasks.filter(task => task.priority === priority.value));
+        //     });
+        //     return priorityStats;
+        // }
+        checkTitle(){
+            taskTitle.addEventListener("input", function(event) {
+                
+                this.validation(event.target, this.notEmptyandLongerThan(event.target.value, 8));
+            })
+        }
+        checkDescription(){
+            taskDescription.addEventListener("input", function(event) {
+                this.validation(event.target, this.notEmptyandLongerThan(event.target.value, 15));
+            })
+        } 
+        checkAssignee(){
+            taskAssignedTo.addEventListener("input", function(event) {
+                this.validation(event.target, this.notEmptyandLongerThan(event.target.value, 8));
+            })
+        }
+        checkDueDate(){   
+            taskDueDate.addEventListener("input", function(event) {
+                const today = this.todayConvertor();
+                const dueDate = new Date(event.target.value);
+                this.validation(event.target, today <= dueDate);
+            })
+        }
+        todayConvertor() {
+            const today = new Date();
+            return today.setHours(0, 0, 0, 0);
+        }
+
+        validation(taskItem, boolean) {
+            if (boolean) {
+                taskItem.classList.remove("is-invalid");
+                taskItem.classList.add("is-valid");
+            } else {
+                taskItem.classList.remove("is-valid");
+                taskItem.classList.add("is-invalid");
+            }
+        }
+
+        notEmptyandLongerThan(taskItem, number) {
+            taskItem && taskItem.length > number;
+        }
+
+        validationTaskForm(title, description, assignee, date, priority, status) {
+            const dueDate = new Date(date);
+            // const today = this.todayConvertor();
+            if (this.notEmptyandLongerThan(title, 8) && this.notEmptyandLongerThan(description, 15) &&
+                this.notEmptyandLongerThan(assignee, 8) && dueDate && priority && status) {
+                    console.log('HELLO')
+                return true;
+            }
+            
+        return false;
+            
+        }
+        alertModalSetup(text, action) {
+            alertModal.textContent = text;
+            alertModal.classList.add(`${action}`);
+            // remove alertModal
+            setTimeout(function () {
+                alertModal.textContent = "";
+                alertModal.classList.remove(`${action}`);
+            }, 1500);
+        }
+        alertSetup(text, action) {
+            alert.textContent = text;
+            alert.classList.add(`${action}`);
+            // remove alert
+            setTimeout(function () {
+                alert.textContent = "";
+                alert.classList.remove(`${action}`);
+            }, 1500);
+        }
+        deleteClicked(){
+            document.querySelector("#deleteAll").addEventListener("click", function() {
+                this.deleteAll();
+            })
+        }
 }
 
-function clearValidations() {
-    taskDetails.map(item => item.classList.remove("is-invalid", "is-valid"));
-}
 
-taskForm.addEventListener("submit", saveButtonClicked);
+
+
+
+
 
 //The buttons on the form
-function saveButtonClicked(event) {
-    event.preventDefault();
-    //console.log("check ID in saveButtonClicked "+temp);
-    const title = taskTitle.value;
-    const description = taskDescription.value;
-    const assignee = taskAssignedTo.value;
-    const date = taskDueDate.value;
-    //select Priority , select Status
-    const priority = prioritySelected();
-    const status = statusSelected();
-
-    //let task = {title,description,assignee, date, priority, status, id};
-    if (validationTaskForm(title, description, assignee, date, priority, status)) {
-        if (taskForm.getAttribute('data-id')=== null) {
-            const task = new Task(title, description, assignee, date, priority, status);
-            taskmanager.addTask(task);
-            taskmanager.addTaskToPage(task);
-            console.log("I'm here! validation task form new input!");
-            taskForm.removeAttribute('data-id');
-        } else {
-            const task = new Task(title, description, assignee, date, priority, status);
-            task.id = Number(taskForm.getAttribute('data-id'));
-            console.log("debugging review validation task update!", task);
-            console.log(taskForm.getAttribute('data-id')); //class list is still there remove all after use
-
-            taskmanager.editTask(task);
-            console.log("debugging review ", taskmanager.tasks);
-            taskForm.removeAttribute('data-id');
-        }
-        $("#newTaskInput").modal("hide");
-    } else {
-        alert("Please complete the form");
-    }
-}
 
 const formCancel = taskForm.querySelector("#cancelButton");
 const formClose = taskForm.querySelector("#close"); //modify later
@@ -247,128 +361,79 @@ function removeTaskFormId() {
     taskForm.removeAttribute('data-id');
 }
 
-
+const taskmanager = new TaskManager();
 
 //Priority 
-function prioritySelected() {
-    return selectPriority.find(priority => priority.checked).value;
-}
-//Status
-function statusSelected() {
-    return selectStatus.find(status => status.checked).value;
-}
+
 //Validation code
-taskTitle.addEventListener("input", function (event) {
-    validation(event.target, notEmptyandLongerThan(event.target.value, 8));
-});
-taskDescription.addEventListener("input", function (event) {
-    validation(event.target, notEmptyandLongerThan(event.target.value, 15));
-});
-taskAssignedTo.addEventListener("input", function (event) {
-    validation(event.target, notEmptyandLongerThan(event.target.value, 8));
-});
-taskDueDate.addEventListener("input", function (event) {
-    const today = todayConvertor();
-    const dueDate = new Date(event.target.value);
-    validation(event.target, today <= dueDate);
-})
 
-function todayConvertor() {
-    const today = new Date();
-    return today.setHours(0, 0, 0, 0);
-}
 
-function validation(taskItem, boolean) {
-    if (boolean) {
-        taskItem.classList.remove("is-invalid");
-        taskItem.classList.add("is-valid");
-    } else {
-        taskItem.classList.remove("is-valid");
-        taskItem.classList.add("is-invalid");
-    }
-};
-
-function notEmptyandLongerThan(taskItem, number) {
-    return taskItem && taskItem.length > number;
-}
-
-function validationTaskForm(title, description, assignee, date, priority, status) {
-    const dueDate = new Date(date);
-    const today = todayConvertor();
-    if (notEmptyandLongerThan(title, 8) && notEmptyandLongerThan(description, 15) &&
-        notEmptyandLongerThan(assignee, 8) && dueDate && priority && status) {
-        return true;
-    }
-    return false;
-}
 //The buttons on the main page
 
-document.querySelector("#deleteAll").addEventListener("click", function () {
-    taskmanager.deleteAll();
-});
-
-//navigation bar
-const getTotal = document.querySelector("#getTotal");
-const totalNumber = document.querySelector("#getTotal > span");
-getTotal.addEventListener("click", () => taskmanager.display());
 
 
-const getDone = document.querySelector("#getDone");
-const getReview = document.querySelector("#getReview");
-const getInProgress = document.querySelector("#getInProgress");
-const getToDo = document.querySelector("#getToDo")
+// //navigation bar
+// const getTotal = document.querySelector("#getTotal");
+// const totalNumber = document.querySelector("#getTotal > span");
+// getTotal.addEventListener("click", () => taskmanager.display());
 
-getDone.addEventListener("click", function () {
-    const done = taskmanager.getStatsOfStatus()[0];
-    taskmanager.displayByItem(done);
-});
-getReview.addEventListener("click", function () {
-    const review = taskmanager.getStatsOfStatus()[1];
-    taskmanager.displayByItem(review);
-});
-getInProgress.addEventListener("click", function () {
-    const inProgress = taskmanager.getStatsOfStatus()[2];
-    taskmanager.displayByItem(inProgress);
-});
-getToDo.addEventListener("click", function () {
-    const toDo = taskmanager.getStatsOfStatus()[3];
-    taskmanager.displayByItem(toDo);
-});
-const getHigh = document.querySelector("#getHigh");
-const getMedium = document.querySelector("#getMedium");
-const getLow = document.querySelector("#getLow");
-const getNo = document.querySelector("#getNo")
 
-getHigh.addEventListener("click", function () {
-    const high = taskmanager.getStatsOfPriority()[0];
-    taskmanager.displayByItem(high);
-});
-getMedium.addEventListener("click", function () {
-    const medium = taskmanager.getStatsOfPriority()[1];
-    taskmanager.displayByItem(medium);
-});
-getLow.addEventListener("click", function () {
-    const low = taskmanager.getStatsOfPriority()[2];
-    taskmanager.displayByItem(low);
-});
-getNo.addEventListener("click", function () {
-    const no = taskmanager.getStatsOfPriority()[3];
-    taskmanager.displayByItem(no);
-});
+// const getDone = document.querySelector("#getDone");
+// const getReview = document.querySelector("#getReview");
+// const getInProgress = document.querySelector("#getInProgress");
+// const getToDo = document.querySelector("#getToDo")
+
+// getDone.addEventListener("click", function () {
+//     const done = taskmanager.getStatsOfStatus()[0];
+//     taskmanager.displayByItem(done);
+// });
+// getReview.addEventListener("click", function () {
+//     const review = taskmanager.getStatsOfStatus()[1];
+//     taskmanager.displayByItem(review);
+// });
+// getInProgress.addEventListener("click", function () {
+//     const inProgress = taskmanager.getStatsOfStatus()[2];
+//     taskmanager.displayByItem(inProgress);
+// });
+// getToDo.addEventListener("click", function () {
+//     const toDo = taskmanager.getStatsOfStatus()[3];
+//     taskmanager.displayByItem(toDo);
+// });
+// const getHigh = document.querySelector("#getHigh");
+// const getMedium = document.querySelector("#getMedium");
+// const getLow = document.querySelector("#getLow");
+// const getNo = document.querySelector("#getNo")
+
+// getHigh.addEventListener("click", function () {
+//     const high = taskmanager.getStatsOfPriority()[0];
+//     taskmanager.displayByItem(high);
+// });
+// getMedium.addEventListener("click", function () {
+//     const medium = taskmanager.getStatsOfPriority()[1];
+//     taskmanager.displayByItem(medium);
+// });
+// getLow.addEventListener("click", function () {
+//     const low = taskmanager.getStatsOfPriority()[2];
+//     taskmanager.displayByItem(low);
+// });
+// getNo.addEventListener("click", function () {
+//     const no = taskmanager.getStatsOfPriority()[3];
+//     taskmanager.displayByItem(no);
+// });
 
 // Status: done =text-success, Review =text-info, InProgress=text-warning, toDo = text-danger;
 // Priority: high = bg-danger, medium = bg-warning, low = bg-warning, no = bg-danger;
-function stats() {
-    getTotal.querySelector("span").innerHTML = `${taskmanager.tasks.length}`;
-    getDone.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.status === "text-success").length}`;
-    getReview.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.status === "text-info").length}`;
-    getInProgress.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.status === "text-warning").length}`;
-    getToDo.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.status === "text-danger").length}`;
-    getNo.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.priority === "bg-dark").length}`;
-    getLow.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.priority === "bg-info").length}`;
-    getMedium.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.priority === "bg-warning").length}`;
-    getHigh.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.priority === "bg-danger").length}`;    
-}
+// function stats() {
+//     getTotal.querySelector("span").innerHTML = `${taskmanager.tasks.length}`;
+//     getDone.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.status === "text-success").length}`;
+//     getReview.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.status === "text-info").length}`;
+//     getInProgress.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.status === "text-warning").length}`;
+//     getToDo.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.status === "text-danger").length}`;
+//     getNo.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.priority === "bg-dark").length}`;
+//     getLow.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.priority === "bg-info").length}`;
+//     getMedium.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.priority === "bg-warning").length}`;
+//     getHigh.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.priority === "bg-danger").length}`;    
+// }
 
 // DUMMY TASKS://///////////////////////////////////////////////////////////////////////////////////////////////
 

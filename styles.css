@@ -70,3 +70,17 @@ p {
 .task-detail-summary {
     padding-left: 0.7rem ;
 }
+.alertModal-danger {
+  color: #721c24;
+  background: #f8d7da;
+}
+.alertModal-success {
+  color: #155724;
+  background: #d4edda;
+}
+.visible {
+  visibility: visible;
+}
+.invisible {
+  visibility: hidden;
+}
