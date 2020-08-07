@@ -12,7 +12,7 @@ class Task{
             this.date = date;
             this.priority = priority;
             this.status = status;
-            this.id = null;
+            // this.id = null;
         }
         toHtmlElement() {
             const html = `
@@ -68,7 +68,7 @@ const taskModalSaveBtn = document.querySelector('#task-modal-save');
 const alert = document.querySelector(".alert")
 const alertModal = document.querySelector(".alertModal");
 const taskContainer = document.querySelector("#tasks")
-
+const clearAllBtn = document.querySelector('#deleteAll');
 //form.name. 
 const taskForm = document.querySelector("#taskForm");
 //TaskDetails
@@ -118,11 +118,12 @@ class TaskManager{
     }
         addTask(title, description, assignee, date, priority, status) {
             const task = new Task(title, description, assignee, date, priority, status);
-            task.id = this.id;
-            task.id ++;
+            // task.id = this.id;
+            // task.id ++;
             // console.log("addtask", task.id);
             this.tasks.push(task);
-            // this.display()
+            this.tasks.forEach((task, i) => task.id = i + 1)
+            this.display()
             
             // stats()
         
@@ -147,7 +148,7 @@ class TaskManager{
         }   
         
         openModal(){
-            openNewTask.addEventListener("click", function() {
+            
             this.clearValues();
             this.clearValidations();
             taskTitle.value = newToDo.value;
@@ -158,11 +159,11 @@ class TaskManager{
             }
             newToDo.value = null;
             
-        })
         }
+        
 
         clearValues() {
-            taskModalSaveBtn.textContent = "HELLO";
+            taskModalSaveBtn.textContent = "Save changes";
             taskModalSaveBtn.classList.remove('btn-danger');
             taskModalSaveBtn.classList.add('btn-primary');
             taskDetails.map(item => item.value = null);
@@ -190,7 +191,7 @@ class TaskManager{
                 if (taskForm.getAttribute('data-id') === null) {
                     const task = new Task(title, description, assignee, date, priority, status);
                     this.addTask(task);
-                    this.addTaskToPage(task);
+                    // this.addTaskToPage(task);
                     console.log("I'm here! validation task form new input!");
                     taskForm.removeAttribute('data-id');
                 } else {
@@ -219,9 +220,6 @@ class TaskManager{
             this.display();
         }
         editButtonClicked(event) {
-            this.clearValues();
-            this.clearValidations();
-
             console.log(event.target.closest("div.task").id);
             
             taskModalSaveBtn.textContent = "Edit";
@@ -235,6 +233,7 @@ class TaskManager{
             document.forms.taskForm.taskDueDate.value = task.date;
             selectPriority.find(priority => priority.value === task.priority).checked = true;
             selectStatus.find(status => status.value === task.status).checked = true;
+            
         }
         // taskForm UI end
         
@@ -262,7 +261,7 @@ class TaskManager{
 
         deleteAll() {
             this.tasks.length = 0;
-            clearAll();
+            this.clearAll();
         }
 
         
@@ -360,8 +359,15 @@ function removeTaskFormId() {
 
 //init class:
 const taskmanager = new TaskManager(newToDo, openNewTask, taskModalSaveBtn, alert, alertModal, taskContainer, taskForm, taskTitle, taskDescription, taskAssignedTo, taskDueDate, selectPriority, selectStatus);
+//=================================================================================================================
+// **********************Events*****************************************************************************
+//=================================================================================================================
 
-// Event
+//Open modal:
+openNewTask.addEventListener("click", function(event){
+    event.preventDefault();
+    taskmanager.openModal()
+})
 // save button : 
     taskForm.addEventListener("submit", function(event){
         event.preventDefault();
@@ -390,13 +396,13 @@ const taskmanager = new TaskManager(newToDo, openNewTask, taskModalSaveBtn, aler
     })
 // }
 
+// Clear all:
+clearAllBtn.addEventListener('click', function () {
+    taskmanager.deleteAll();
+    
+    taskmanager.alertSetup("Successfully removed items from the list", "alert-success");
+});
 
-//Priority 
-
-//Validation code
-
-
-//The buttons on the main page
 
 
 
