@@ -97,6 +97,7 @@ const selectStatus = [...document.forms.taskForm.querySelectorAll("input[name=st
 
 const newToDo = document.querySelector("#newToDo");
 const openNewTask = document.querySelector("#openForm");
+// const task = new Task(title, description, assignee, date, priority, status, id)
 
 class TaskManager{
     constructor(newToDo, openNewTask, taskModalSaveBtn, alert, alertModal, taskContainer, taskForm, taskTitle, taskDescription, taskAssignedTo, taskDueDate, priorities, progress){
@@ -118,8 +119,8 @@ class TaskManager{
         this.priorities = priorities;
         this.progress = progress
     }
-        addTask(title, description, assignee, date, priority, status) {
-            const task = new Task(title, description, assignee, date, priority, status);
+        addTask(title, description, assignee, date, checkedPriority, checkedProgress) {
+            const task = new Task(title, description, assignee, date, checkedPriority, checkedProgress);
             // task.id = this.id;
             // task.id ++;
             // console.log("addtask", task.id);
@@ -208,7 +209,7 @@ class TaskManager{
             if (this.validationTaskForm(title, description, assignee, date, checkedPriority, checkedProgress)) {
                 if (taskForm.getAttribute('data-id') === null) {
                     const task = new Task(title, description, assignee, date, checkedPriority, checkedProgress);
-                    this.addTask(task);
+                    this.addTask(title, description, assignee, date, checkedPriority, checkedProgress);
                     // this.addTaskToPage(task);
                     console.log("I'm here! validation task form new input!");
                     taskForm.removeAttribute('data-id');
@@ -229,7 +230,7 @@ class TaskManager{
               
             } else {
                 this.alertModalSetup("Please complete the form", "alert-danger");
-                console.log(alertModal)
+                // console.log(alertModal)
                 const smallText = document.querySelectorAll('.smallText');
                 smallText.forEach(small => small.classList.add('text-danger'));
                 setTimeout(function () {
