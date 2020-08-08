@@ -4,18 +4,18 @@
 
 
 
-class Task{
-        constructor(title, description, assignee, date, priority, status, id) {
-            this.title = title;
-            this.description = description;
-            this.assignee = assignee;
-            this.date = date;
-            this.priority = priority;
-            this.status = status;
-            // this.id = null;
-        }
-        toHtmlElement() {
-            const html = `
+class Task {
+    constructor(title, description, assignee, date, priority, status, id) {
+        this.title = title;
+        this.description = description;
+        this.assignee = assignee;
+        this.date = date;
+        this.priority = priority;
+        this.status = status;
+        // this.id = null;
+    }
+    toHtmlElement() {
+        const html = `
         <div class="task" id="task${this.id}">
             <div class="row task" id=${this.id}>
                 <div class="col-lg-4 col-12 taskTitle order-2 order-lg-1">
@@ -61,8 +61,8 @@ class Task{
             </div>
             <hr />
         </div>`;
-            return document.createRange().createContextualFragment(html);
-        }
+        return document.createRange().createContextualFragment(html);
+    }
 }
 const taskModalSaveBtn = document.querySelector('#task-modal-save');
 const alert = document.querySelector(".alert")
@@ -99,8 +99,8 @@ const newToDo = document.querySelector("#newToDo");
 const openNewTask = document.querySelector("#openForm");
 // const task = new Task(title, description, assignee, date, priority, status, id)
 
-class TaskManager{
-    constructor(newToDo, openNewTask, taskModalSaveBtn, alert, alertModal, taskContainer, taskForm, taskTitle, taskDescription, taskAssignedTo, taskDueDate, priorities, progress){
+class TaskManager {
+    constructor(newToDo, openNewTask, taskModalSaveBtn, alert, alertModal, taskContainer, taskForm, taskTitle, taskDescription, taskAssignedTo, taskDueDate, priorities, progress) {
         this.tasks = [];
         this.id = 0;
         this.newToDo = newToDo;
@@ -119,250 +119,254 @@ class TaskManager{
         this.priorities = priorities;
         this.progress = progress
     }
-        addTask(title, description, assignee, date, checkedPriority, checkedProgress) {
-            const task = new Task(title, description, assignee, date, checkedPriority, checkedProgress);
-            // task.id = this.id;
-            // task.id ++;
-            // console.log("addtask", task.id);
-            this.tasks.push(task);
-            this.tasks.forEach((task, i) => task.id = i + 1)
-            this.display()
-            
-            // stats()
-        
-        } display() {
-            this.clearAll();
-            this.tasks.forEach(task => this.addTaskToPage(task));
+    addTask(title, description, assignee, date, checkedPriority, checkedProgress) {
+        const task = new Task(title, description, assignee, date, checkedPriority, checkedProgress);
+        // task.id = this.id;
+        // task.id ++;
+        // console.log("addtask", task.id);
+        this.tasks.push(task);
+        this.tasks.forEach((task, i) => task.id = i + 1)
+        this.display()
+
+        // stats()
+
+    } display() {
+        this.clearAll();
+        this.tasks.forEach(task => this.addTaskToPage(task));
+    }
+    clearAll() {
+        taskContainer.innerHTML = "";
+    }
+    //taskForm UI start
+    addTaskToPage(task) {
+        const taskElement = task.toHtmlElement();
+        taskElement.querySelector('#binForOne').addEventListener("click", (e) => this.deleteTaskOnPage(e));
+        taskElement.querySelector('#editTaskButton').addEventListener("click", (e) => this.editButtonClicked(e));
+        document.querySelector("#tasks").append(taskElement);
+        this.clearValues();
+        this.clearValidations()
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+    }
+
+    openModal() {
+
+        this.clearValues();
+        this.clearValidations();
+        taskTitle.value = newToDo.value;
+        if (taskTitle.value && taskTitle.value.length > 8) {
+            taskTitle.classList.add("is-valid");
+        } else {
+            taskTitle.classList.add("is-invalid");
         }
-        clearAll() {
-            taskContainer.innerHTML = "";
-        } 
-        //taskForm UI start
-        addTaskToPage(task){
-            const taskElement = task.toHtmlElement();
-            taskElement.querySelector('#binForOne').addEventListener("click", (e) => this.deleteTaskOnPage(e));
-            taskElement.querySelector('#editTaskButton').addEventListener("click", (e) => this.editButtonClicked(e));
-            document.querySelector("#tasks").append(taskElement);
-            this.clearValues();
-            this.clearValidations()
-            $(function () { 
-                $('[data-toggle="tooltip"]').tooltip()
-            });
-        }   
-        
-        openModal(){
-            
-            this.clearValues();
-            this.clearValidations();
-            taskTitle.value = newToDo.value;
-            if (taskTitle.value && taskTitle.value.length > 8) {
-                taskTitle.classList.add("is-valid");
+        newToDo.value = null;
+
+    }
+
+
+    clearValues() {
+        taskModalSaveBtn.textContent = "Save changes";
+        taskModalSaveBtn.classList.remove('btn-danger');
+        taskModalSaveBtn.classList.add('btn-primary');
+        taskDetails.map(item => item.value = null);
+        priorities.map(priority => priority.checked = false);
+        progress.map(status => status.checked = false)
+    }
+
+    clearValidations() {
+        taskDetails.map(item => item.classList.remove("is-invalid", "is-valid"));
+    }
+    formFilledOut() {
+
+        //console.log("check ID in saveButtonClicked "+temp);
+        const title = taskTitle.value;
+        const description = taskDescription.value;
+        const assignee = taskAssignedTo.value;
+        const date = taskDueDate.value;
+        //select Priority , select Status
+        // let priority = selectPriority.find(priority => priority.checked).value;
+
+        // let status = selectStatus.find(status => status.checked).value;
+        let checkedPriority;
+        for (let i = 0; i < priorities.length; i++) {
+            if (priorities[i].checked) {
+                checkedPriority = priorities[i].value;
+                // console.log(typeof checkedPriority, checkedPriority);
+
+            }
+        }
+
+        let checkedProgress;
+        for (let i = 0; i < progress.length; i++) {
+            if (progress[i].checked) {
+                checkedProgress = progress[i].value;
+                // console.log(typeof checkedProgress, checkedProgress);
+                //returns values done, toDo, inProgress or review;
+            }
+        }
+        //let task = {title,description,assignee, date, priority, status, id};
+        if (this.validationTaskForm(title, description, assignee, date, checkedPriority, checkedProgress)) {
+            if (taskForm.getAttribute('data-id') === null) {
+                const task = new Task(title, description, assignee, date, checkedPriority, checkedProgress);
+                this.addTask(title, description, assignee, date, checkedPriority, checkedProgress);
+                // this.addTaskToPage(task);
+                console.log("I'm here! validation task form new input!");
+                taskForm.removeAttribute('data-id');
             } else {
-                taskTitle.classList.add("is-invalid");
-            }
-            newToDo.value = null;
-            
-        }
-        
+                const task = new Task(title, description, assignee, date, checkedPriority, checkedProgress);
+                task.id = Number(taskForm.getAttribute('data-id'));
+                console.log("debugging review validation task update!", task);
+                console.log(taskForm.getAttribute('data-id')); //class list is still there remove all after use
 
-        clearValues() {
-            taskModalSaveBtn.textContent = "Save changes";
-            taskModalSaveBtn.classList.remove('btn-danger');
-            taskModalSaveBtn.classList.add('btn-primary');
-            taskDetails.map(item => item.value = null);
-            priorities.map(priority => priority.checked = false);
-            progress.map(status => status.checked = false)
-        }
-
-        clearValidations() {
-            taskDetails.map(item => item.classList.remove("is-invalid", "is-valid"));
-        }
-        formFilledOut() {
-           
-            //console.log("check ID in saveButtonClicked "+temp);
-            const title = taskTitle.value;
-            const description = taskDescription.value;
-            const assignee = taskAssignedTo.value;
-            const date = taskDueDate.value;
-            //select Priority , select Status
-            // let priority = selectPriority.find(priority => priority.checked).value;
-
-            // let status = selectStatus.find(status => status.checked).value;
-            let checkedPriority;
-            for (let i = 0; i < priorities.length; i++) {
-                if (priorities[i].checked) {
-                    checkedPriority = priorities[i].value;
-                    // console.log(typeof checkedPriority, checkedPriority);
-
-                }
-            }
-
-            let checkedProgress;
-            for (let i = 0; i < progress.length; i++) {
-                if (progress[i].checked) {
-                    checkedProgress = progress[i].value;
-                    // console.log(typeof checkedProgress, checkedProgress);
-                    //returns values done, toDo, inProgress or review;
-                }
-            }
-            //let task = {title,description,assignee, date, priority, status, id};
-            if (this.validationTaskForm(title, description, assignee, date, checkedPriority, checkedProgress)) {
-                if (taskForm.getAttribute('data-id') === null) {
-                    const task = new Task(title, description, assignee, date, checkedPriority, checkedProgress);
-                    this.addTask(title, description, assignee, date, checkedPriority, checkedProgress);
-                    // this.addTaskToPage(task);
-                    console.log("I'm here! validation task form new input!");
-                    taskForm.removeAttribute('data-id');
-                } else {
-                    const task = new Task(title, description, assignee, date, checkedPriority, checkedProgress);
-                    task.id = Number(taskForm.getAttribute('data-id'));
-                    console.log("debugging review validation task update!", task);
-                    console.log(taskForm.getAttribute('data-id')); //class list is still there remove all after use
-
-                    this.editTask(task);
-                    console.log("debugging review ", this.tasks);
-                    taskForm.removeAttribute('data-id');
-                }
+                this.editTask(task);
+                console.log("debugging review ", this.tasks);
+                taskForm.removeAttribute('data-id');
                 this.alertModalSetup("Item successfully updated", "alert-success");
+
                 setTimeout(function () {
                     $("#newTaskInput").modal("hide"); // set data-modal ...
                 }, 1000);
-              
-            } else {
-                this.alertModalSetup("Please complete the form", "alert-danger");
-                // console.log(alertModal)
-                const smallText = document.querySelectorAll('.smallText');
-                smallText.forEach(small => small.classList.add('text-danger'));
-                setTimeout(function () {
-                    smallText.forEach(small => small.classList.remove('text-danger'));
-                }, 1500);
-                
             }
-        }
-        deleteTaskOnPage(event) {
-            this.deleteTask(event.target.closest("div.task").id);
-            event.target.closest("div.task").remove();
-            this.display();
-        }
-        editButtonClicked(event) {
-            console.log(event.target.closest("div.task").id);
-            
-            taskModalSaveBtn.textContent = "Edit";
-            taskModalSaveBtn.classList.add('btn-danger');
-            const task = this.tasks.find(task => task.id == event.target.closest("div.task").id);
+            this.alertModalSetup("Item successfully updated", "alert-success");
+            setTimeout(function () {
+                $("#newTaskInput").modal("hide"); // set data-modal ...
+            }, 1000);
 
-            document.forms.taskForm.setAttribute("data-id", task.id);
-            document.forms.taskForm.taskTitle.value = task.title;
-            document.forms.taskForm.taskDescription.value = task.description;
-            document.forms.taskForm.taskAssignedTo.value = task.assignee;
-            document.forms.taskForm.taskDueDate.value = task.date;
-            selectPriority.find(priority => priority.value === task.priority).checked = true;
-            selectStatus.find(status => status.value === task.status).checked = true;
-            
+        } else {
+            this.alertModalSetup("Please complete the form", "alert-danger");
+            // console.log(alertModal)
+            const smallText = document.querySelectorAll('.smallText');
+            smallText.forEach(small => small.classList.add('text-danger'));
+            setTimeout(function () {
+                smallText.forEach(small => small.classList.remove('text-danger'));
+            }, 1500);
+
         }
-        // taskForm UI end
-        
-        findTaskIndex(task) {
-            this.tasks.findIndex(taskInTasks => (task.id === taskInTasks.id));
+    }
+    deleteTaskOnPage(event) {
+        this.deleteTask(event.target.closest("div.task").id);
+        event.target.closest("div.task").remove();
+        this.display();
+    }
+    editButtonClicked(event) {
+        console.log(event.target.closest("div.task").id);
+
+        taskModalSaveBtn.textContent = "Edit";
+        taskModalSaveBtn.classList.add('btn-danger');
+        const task = this.tasks.find(task => task.id == event.target.closest("div.task").id);
+
+        document.forms.taskForm.setAttribute("data-id", task.id);
+        document.forms.taskForm.taskTitle.value = task.title;
+        document.forms.taskForm.taskDescription.value = task.description;
+        document.forms.taskForm.taskAssignedTo.value = task.assignee;
+        document.forms.taskForm.taskDueDate.value = task.date;
+        selectPriority.find(priority => priority.value === task.priority).checked = true;
+        selectStatus.find(status => status.value === task.status).checked = true;
+    }
+    // taskForm UI end
+
+    findTaskIndex(task) {
+        this.tasks.findIndex(taskInTasks => (task.id === taskInTasks.id));
+    }
+
+    editTask(task) {
+        this.clearAll();
+        const taskIndex = this.findTaskIndex(task);
+        //console.log("editTaskfilte working? taskIndex", taskIndex);
+        this.tasks.splice(taskIndex, 1, task);
+        //console.log("editTaskfilte working?", this.tasks);
+        this.display();
+        this.clearValues();
+        this.clearValidations();
+        // this.stats();
+    }
+
+    deleteTask(task) {
+        const taskIndex = this.findTaskIndex(task);
+        this.tasks.splice(taskIndex, 1);
+        // this.stats() 
+    }
+
+    deleteAll() {
+        this.tasks.length = 0;
+        this.clearAll();
+    }
+
+
+    displayByItem(filteredItem) {
+        this.clearAll();
+        filteredItem.forEach(task => this.addTaskToPage(task));
+    }
+    getStatsOfStatus() {
+        const statusStats = []
+        selectStatus.forEach(status => {
+            statusStats.push(this.tasks.filter(task => task.status === status.value));
+        });
+        return statusStats;
+    }
+    getStatsOfPriority() {
+        const priorityStats = []
+        selectPriority.forEach(priority => {
+            priorityStats.push(this.tasks.filter(task => task.priority === priority.value));
+        });
+        return priorityStats;
+    }
+
+    todayConvertor() {
+        const today = new Date();
+        return today.setHours(0, 0, 0, 0);
+    }
+
+    validation(taskItem, boolean) {
+        if (boolean) {
+            taskItem.classList.remove("is-invalid");
+            taskItem.classList.add("is-valid");
+        } else {
+            taskItem.classList.remove("is-valid");
+            taskItem.classList.add("is-invalid");
+        }
+    }
+
+    notEmptyandLongerThan(taskItem, number) {
+        return taskItem && taskItem.length > number;
+    }
+
+    validationTaskForm(title, description, assignee, date, priority, status) {
+        const dueDate = new Date(date);
+        // const today = this.todayConvertor();
+        if (this.notEmptyandLongerThan(title, 8) && this.notEmptyandLongerThan(description, 15) &&
+            this.notEmptyandLongerThan(assignee, 8) && dueDate && priority && status) {
+            return true;
         }
 
-        editTask(task) {
-            clearAll();
-            const taskIndex = this.findTaskIndex(task);
-            //console.log("editTaskfilte working? taskIndex", taskIndex);
-            this.tasks.splice(taskIndex, 1, task);
-            //console.log("editTaskfilte working?", this.tasks);
-            this.display();
-            clearValues();
-            clearValidations();
-            stats();
-        }
-
-        deleteTask(task) {
-            const taskIndex = this.findTaskIndex(task);
-            this.tasks.splice(taskIndex, 1);
-            stats() 
-        }
-
-        deleteAll() {
-            this.tasks.length = 0;
-            this.clearAll();
-        }
-
-        
-        // displayByItem(filteredItem){
-        //     clearAll();
-        //     filteredItem.forEach(task => this.addTaskToPage(task));
-        // }
-        // getStatsOfStatus() {
-        //     const statusStats =[] 
-        //     selectStatus.forEach(status => {
-        //         statusStats.push(this.tasks.filter(task=> task.status === status.value));
-        //     }); 
-        //     return statusStats;                                                                                        
-        // }
-        // getStatsOfPriority() {
-        //     const priorityStats = []
-        //     selectPriority.forEach(priority => {
-        //         priorityStats.push(this.tasks.filter(task => task.priority === priority.value));
-        //     });
-        //     return priorityStats;
-        // }
-        
-        todayConvertor() {
-            const today = new Date();
-            return today.setHours(0, 0, 0, 0);
-        }
-
-        validation(taskItem, boolean) {
-            if (boolean) {
-                taskItem.classList.remove("is-invalid");
-                taskItem.classList.add("is-valid");
-            } else {
-                taskItem.classList.remove("is-valid");
-                taskItem.classList.add("is-invalid");
-            }
-        }
-
-        notEmptyandLongerThan(taskItem, number) {
-            return taskItem && taskItem.length > number;
-        }
-
-        validationTaskForm(title, description, assignee, date, priority, status) {
-            const dueDate = new Date(date);
-            // const today = this.todayConvertor();
-            if (this.notEmptyandLongerThan(title, 8) && this.notEmptyandLongerThan(description, 15) &&
-                this.notEmptyandLongerThan(assignee, 8) && dueDate && priority && status) {
-                return   true;
-            }
-            
         return false;
-            
-        }
-        alertModalSetup(text, action) {
-            alertModal.textContent = text;
-            alertModal.classList.add(`${action}`);
-            // remove alertModal
-            setTimeout(function () {
-                alertModal.textContent = "";
-                alertModal.classList.remove(`${action}`);
-            }, 1500);
-        }
-        alertSetup(text, action) {
-            alert.textContent = text;
-            alert.classList.add(`${action}`);
-            // remove alert
-            setTimeout(function () {
-                alert.textContent = "";
-                alert.classList.remove(`${action}`);
-            }, 1500);
-        }
-        deleteClicked(){
-            document.querySelector("#deleteAll").addEventListener("click", function() {
-                this.deleteAll();
-            })
-        }
-}   
+
+    }
+    alertModalSetup(text, action) {
+        alertModal.textContent = text;
+        alertModal.classList.add(`${action}`);
+        // remove alertModal
+        setTimeout(function () {
+            alertModal.textContent = "";
+            alertModal.classList.remove(`${action}`);
+        }, 1500);
+    }
+    alertSetup(text, action) {
+        alert.textContent = text;
+        alert.classList.add(`${action}`);
+        // remove alert
+        setTimeout(function () {
+            alert.textContent = "";
+            alert.classList.remove(`${action}`);
+        }, 1500);
+    }
+    deleteClicked() {
+        document.querySelector("#deleteAll").addEventListener("click", function () {
+            this.deleteAll();
+        })
+    }
+}
 
 
 
@@ -388,42 +392,42 @@ const taskmanager = new TaskManager(newToDo, openNewTask, taskModalSaveBtn, aler
 //=================================================================================================================
 
 //Open modal:
-openNewTask.addEventListener("click", function(event){
+openNewTask.addEventListener("click", function (event) {
     event.preventDefault();
     taskmanager.openModal()
 })
 // save button : 
-    taskForm.addEventListener("submit", function(event){
-        event.preventDefault();
-        taskmanager.formFilledOut(event);
-    })
+taskForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+    taskmanager.formFilledOut(event);
+})
 // checkTitle(){
-    taskTitle.addEventListener("input", function (event) {
-        taskmanager.validation(event.target, taskmanager.notEmptyandLongerThan(event.target.value, 8));
-    })
+taskTitle.addEventListener("input", function (event) {
+    taskmanager.validation(event.target, taskmanager.notEmptyandLongerThan(event.target.value, 8));
+})
 // }
 // checkDescription(){
-    taskDescription.addEventListener("input", function (event) {
-        taskmanager.validation(event.target, taskmanager.notEmptyandLongerThan(event.target.value, 15));
-    })
+taskDescription.addEventListener("input", function (event) {
+    taskmanager.validation(event.target, taskmanager.notEmptyandLongerThan(event.target.value, 15));
+})
 // }
 // checkAssignee(){
-    taskAssignedTo.addEventListener("input", function (event) {
-        taskmanager.validation(event.target, taskmanager.notEmptyandLongerThan(event.target.value, 8));
-    })
+taskAssignedTo.addEventListener("input", function (event) {
+    taskmanager.validation(event.target, taskmanager.notEmptyandLongerThan(event.target.value, 8));
+})
 // }
 // checkDueDate(){
-    taskDueDate.addEventListener("input", function (event) {
-        const today = taskmanager.todayConvertor();
-        const dueDate = new Date(event.target.value);
-        taskmanager.validation(event.target, today <= dueDate);
-    })
+taskDueDate.addEventListener("input", function (event) {
+    const today = taskmanager.todayConvertor();
+    const dueDate = new Date(event.target.value);
+    taskmanager.validation(event.target, today <= dueDate);
+})
 // }
 
 // Clear all:
 clearAllBtn.addEventListener('click', function () {
     taskmanager.deleteAll();
-    
+
     taskmanager.alertSetup("Successfully removed items from the list", "alert-success");
 });
 
@@ -525,7 +529,7 @@ const task4 = new Task("Debrief on next steps with Yumi and Zoe",
     4);
 
 //const taskmanager = new TaskManager();
-    
+
     // taskmanager.addTask(task1)
     // taskmanager.addTask(task2)
     // taskmanager.addTask(task3)
