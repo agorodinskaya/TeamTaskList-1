@@ -12,7 +12,7 @@ class Task {
         this.date = date;
         this.priority = priority;
         this.status = status;
-        // this.id = null;
+        this.id = id;
     }
     // toHtmlElement() {
     //     const html = `
@@ -119,7 +119,8 @@ class TaskManager {
         this.selectPriority = selectPriority;
         this.selectStatus = selectStatus;
         this.priorities = priorities;
-        this.progress = progress
+        this.progress = progress;
+        this.editId = ""
     }
         addTask(task) {
             this.tasks = this.getTasks();
@@ -128,7 +129,11 @@ class TaskManager {
             // task.id ++;
             // console.log("addtask", task.id);
             this.tasks.push(task);
-            this.tasks.forEach((task, i) => task.id = i + 1);
+            this.tasks.forEach((task, i) => this.id = i + 1);
+            // this.id ++;
+            task.id = this.id;
+            console.log(this.id)
+            console.log(task.id)
             localStorage.setItem('tasks', JSON.stringify(this.tasks));
             this.display()
 
@@ -276,15 +281,12 @@ class TaskManager {
                         $("#newTaskInput").modal("hide"); // set data-modal ...
                     }, 1000);
                 } else {
-                    const task = new Task(title, description, assignee, date, checkedPriority, checkedProgress);
-                    task.id = Number(taskForm.getAttribute('data-id'));
+                    // const task = new Task(title, description, assignee, date, checkedPriority, checkedProgress, id);
+                    this.id = Number(taskForm.getAttribute('data-id'));
                     // console.log(task.id);
                     // console.log("debugging review validation task update!", task);
                     // console.log(taskForm.getAttribute('data-id')); //class list is still there remove all after use
-
-                    this.editTask(title, description, assignee, date, checkedPriority, checkedProgress,task.id);
-                    // console.log('**************'+ task, task.id)
-                    // console.log("debugging review ", this.tasks);
+                    this.editTask(title, description, assignee, date, checkedPriority, checkedProgress, this.id);
                     taskForm.removeAttribute('data-id');
                     this.alertModalSetup("Item successfully updated", "alert-success");
                     setTimeout(function () {
@@ -337,9 +339,10 @@ class TaskManager {
 
         editTask(title, description, assignee, date, checkedPriority, checkedProgress, id) {
             this.tasks = this.getTasks();
-            const editTask = new Task(title, description, assignee, date, checkedPriority, checkedProgress)    
+            const editTask = new Task(title, description, assignee, date, checkedPriority, checkedProgress, id = this.id);
+            console.log(id)
             let index = this.tasks.findIndex(task => (task.id === id));
-            console.log(index)
+            // console.log(index)
             const tasks = this.tasks.splice(index, 1, editTask);
             localStorage.setItem("tasks", JSON.stringify(this.tasks));
             this.display();
