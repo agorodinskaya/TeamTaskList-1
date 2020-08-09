@@ -273,7 +273,6 @@ class TaskManager {
             if (taskForm.getAttribute('data-id') === null) {
                 const task = new Task(title, description, assignee, date, checkedPriority, checkedProgress);
                 this.addTask(task);
-                // this.display(task);
                 console.log("I'm here! validation task form new input!");
                 taskForm.removeAttribute('data-id');
             } else {
@@ -308,9 +307,23 @@ class TaskManager {
         }
     }
     deleteTaskOnPage(event) {
-        this.deleteTask(event.target.closest("div.task").id);
+        this.deleteTask(Number(event.target.closest("div.task").id));
+        // console.log(typeof event.target.closest("div.task").id)
         event.target.closest("div.task").remove();
-        // this.display();
+        this.alertSetup("Item successfully removed from the list", "alert-success");
+    }
+    deleteTask(id) {
+        this.tasks = this.getTasks();
+        console.log(this.tasks)
+        const tasks = this.tasks.filter(function (task) {
+            if (task.id !== id) {
+                return task
+            }
+        })
+        console.log(tasks)
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+
+        // this.stats() 
     }
     editButtonClicked(event) {
         console.log(event.target.closest("div.task").id);
@@ -346,21 +359,7 @@ class TaskManager {
         // this.stats();
     }
 
-    deleteTask(id) {
-        const tasks = this.getTasks();    
-        console.log(tasks)   
-        this.tasks.forEach((task, index) => {
-            if (task.id === id) {
-                tasks.splice(index, 1);
-            }
-        })
-
-        localStorage.setItem('tasks', JSON.stringify(tasks));
     
-        // const taskIndex = this.findTaskIndex(task);
-        // this.tasks.splice(taskIndex, 1);
-        // this.stats() 
-    }
 
     displayByItem(filteredItem) {
         this.clearAll();
@@ -501,7 +500,6 @@ taskDueDate.addEventListener("input", function (event) {
 // Clear all:
 clearAllBtn.addEventListener('click', function () {
     taskmanager.deleteAll();
-
     taskmanager.alertSetup("Successfully removed items from the list", "alert-success");
 });
 
