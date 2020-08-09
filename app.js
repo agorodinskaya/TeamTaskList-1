@@ -1,8 +1,3 @@
-/// Question : 
-// 1.where is it better to move our declarations ? 
-// 2. 
-
-
 
 class Task {
     constructor(title, description, assignee, date, priority, status, id) {
@@ -14,55 +9,6 @@ class Task {
         this.status = status;
         this.id = id;
     }
-    // toHtmlElement() {
-    //     const html = `
-    //     <div class="task" id="task${this.id}">
-    //         <div class="row task" id=${this.id}>
-    //             <div class="col-lg-4 col-12 taskTitle order-2 order-lg-1">
-    //                 <a href="#task${this.id}Description" class="text-secondary icon ml-0 pl-0 small"
-    //                     data-toggle="collapse" data-target="#task${this.id}Description">
-    //                     <h6 class="text-left">${this.title}</h6>
-    //                 </a>
-
-    //             </div>
-    //             <div class="col-lg-2 col-6 order-3 order-lg-2">
-    //                 ${this.date}
-    //             </div>
-    //             <div class="col-lg-2 col-6 order-4 order-lg-3">
-    //             ${this.assignee}
-    //             </div>
-    //             <div class="col-lg-4 order-1 order-lg-4">
-    //                 <ul class="row taskSummary justify-content-around">
-    //                     <li class="col">
-    //                         <a href="#newTaskInput" id = "editTaskButton" role= "button"
-    //                             class="d-inline btn btn-link col-2 ml-0 pl-0 mb-0 pb-0 text-dark"
-    //                             data-toggle="modal" data-target="#newTaskInput">
-    //                             <i class="fas fa-edit"></i></a>
-    //                     </li>
-    //                     <li class="col">
-    //                     <span class="dot rounded-circle ${this.priority} icon" data-toggle="tooltip" data-placement="top" title="Priority"></span>
-    //                     </li>
-    //                     <li class="col">
-    //                         <i class="icon fas fa-tag ${this.status}" data-toggle="tooltip" data-placement="top" title="Status"></i>
-    //                     </li>
-    //                     <li class="col">
-    //                         <button id="binForOne" type="button" class="ml-0 pl-0 btn btn-link text-dark"><i
-    //                                 class="icon far fa-trash-alt"></i></button>
-    //                     </li>
-    //                 </ul>
-    //             </div>
-    //         </div>
-    //         <div >
-    //             <!--toggle tasks details-->
-    //             <div id ="task${this.id}Description" class = "collapse" >
-    //             ${this.description}
-    //             </div>
-    //             <!--toggle tasks details end-->
-    //         </div>
-    //         <hr />
-    //     </div>`;
-    //     return document.createRange().createContextualFragment(html);
-    // }
 }
 const taskModalSaveBtn = document.querySelector('#task-modal-save');
 const alert = document.querySelector(".alert")
@@ -124,10 +70,6 @@ class TaskManager {
     }
         addTask(task) {
             this.tasks = this.getTasks();
-            // const task = new Task(title, description, assignee, date, checkedPriority, checkedProgress);
-            // task.id = this.id;
-            // task.id ++;
-            // console.log("addtask", task.id);
             this.tasks.push(task);
             this.tasks.forEach((task, i) => this.id = i + 1);
             // this.id ++;
@@ -245,14 +187,10 @@ class TaskManager {
             taskDetails.map(item => item.classList.remove("is-invalid", "is-valid"));
         }
         formFilledOut() {
-        //console.log("check ID in saveButtonClicked "+temp);
             const title = taskTitle.value;
             const description = taskDescription.value;
             const assignee = taskAssignedTo.value;
             const date = taskDueDate.value;
-            //select Priority , select Status
-            // let priority = selectPriority.find(priority => priority.checked).value;
-            // let status = selectStatus.find(status => status.checked).value;
             let checkedPriority;
             for (let i = 0; i < priorities.length; i++) {
                 if (priorities[i].checked) {
@@ -557,58 +495,4 @@ clearAllBtn.addEventListener('click', function () {
 //     getMedium.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.priority === "bg-warning").length}`;
 //     getHigh.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.priority === "bg-danger").length}`;    
 // }
-
-// DUMMY TASKS://///////////////////////////////////////////////////////////////////////////////////////////////
-
-// const task1 = new Task("Wesbos JS",
-//     "01/08/2020",
-//     "YP",
-//     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quisquam consequatur commodi non vitae harum autem quibusdam quam ratione deserunt!",
-//     "high",
-//     "done",
-//     1);
-// const task2 = new Task("Validation form",
-//     "01/08/2020",
-//     "Zoe",
-//     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quisquam consequatur commodi non vitae harum autem quibusdam quam ratione deserunt!",
-//     "medium",
-//     "inProgress",
-//     2);
-// const task3 = new Task("Canvas",
-//     "01/08/2020",
-//     "YP",
-//     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quisquam consequatur commodi non vitae harum autem quibusdam quam ratione deserunt!",
-//     "high",
-//     "review",
-//     4);
-// const task4 = new Task("Debrief on next steps with Yumi and Zoe",
-//     "01/08/2020",
-//     "AG",
-//     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quisquam consequatur commodi non vitae harum autem quibusdam quam ratione deserunt!",
-//     "low",
-//     "review",
-//     4);
-
-//const taskmanager = new TaskManager();
-
-    // taskmanager.addTask(task1)
-    // taskmanager.addTask(task2)
-    // taskmanager.addTask(task3)
-    // taskmanager.addTask(task4)
-
-
-// taskmanager.addTaskToPage({
-//     "title": "\"Wesbos JS\";",
-//     "description": "\"Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quisquam consequatur commodi non vitae harum autem quibusdam quam ratione deserunt!\";",
-//     "this.assignee": "\"YP\";",
-//     "this.date": "\"01/08/2020\";",
-//     "this.priority": "\"bg-danger\";",
-//     "this.status": "\"text-info\";",
-//     "this.taskID": "\"1\";"
-// });
-
-
-
-
-
 
