@@ -275,26 +275,27 @@ class TaskManager {
                 this.addTask(task);
                 console.log("I'm here! validation task form new input!");
                 taskForm.removeAttribute('data-id');
+                this.alertModalSetup("Item successfully created", "alert-success");
+                setTimeout(function () {
+                    $("#newTaskInput").modal("hide"); // set data-modal ...
+                }, 1000);
             } else {
                 const task = new Task(title, description, assignee, date, checkedPriority, checkedProgress);
                 task.id = Number(taskForm.getAttribute('data-id'));
-                console.log("debugging review validation task update!", task);
-                console.log(taskForm.getAttribute('data-id')); //class list is still there remove all after use
+                console.log(task.id);
+                // console.log("debugging review validation task update!", task);
+                // console.log(taskForm.getAttribute('data-id')); //class list is still there remove all after use
 
-                this.editTask(task);
-                console.log("debugging review ", this.tasks);
+                this.editTask(title, description, assignee, date, checkedPriority, checkedProgress,task.id);
+                // console.log('**************'+ task, task.id)
+                // console.log("debugging review ", this.tasks);
                 taskForm.removeAttribute('data-id');
                 this.alertModalSetup("Item successfully updated", "alert-success");
 
                 setTimeout(function () {
                     $("#newTaskInput").modal("hide"); // set data-modal ...
                 }, 1000);
-            }
-            this.alertModalSetup("Item successfully updated", "alert-success");
-            setTimeout(function () {
-                $("#newTaskInput").modal("hide"); // set data-modal ...
-            }, 1000);
-
+            }     
         } else {
             this.alertModalSetup("Please complete the form", "alert-danger");
             // console.log(alertModal)
@@ -326,12 +327,12 @@ class TaskManager {
         // this.stats() 
     }
     editButtonClicked(event) {
-        console.log(event.target.closest("div.task").id);
+        // console.log(event.target.closest("div.task").id);
 
         taskModalSaveBtn.textContent = "Edit";
         taskModalSaveBtn.classList.add('btn-danger');
-        const task = this.tasks.find(task => task.id == event.target.closest("div.task").id);
-
+        const task = this.tasks.find(task => task.id === Number(event.target.closest("div.task").id));
+        // console.log(task)
         document.forms.taskForm.setAttribute("data-id", task.id);
         document.forms.taskForm.taskTitle.value = task.title;
         document.forms.taskForm.taskDescription.value = task.description;
@@ -340,26 +341,26 @@ class TaskManager {
         selectPriority.find(priority => priority.value === task.priority).checked = true;
         selectStatus.find(status => status.value === task.status).checked = true;
     }
+
+    editTask(title, description, assignee, date, checkedPriority, checkedProgress, id) {
+        this.tasks = this.getTasks();
+        const editTask = new Task(title, description, assignee, date, checkedPriority, checkedProgress)
+        
+        let index = this.tasks.findIndex(task => (task.id === id));
+        console.log(index)
+        const tasks = this.tasks.splice(index, 1, editTask);
+        localStorage.setItem("tasks", JSON.stringify(this.tasks));
+        this.display();
+        this.clearValues();
+        this.clearValidations();
+        // this.stats();
+    }
     // taskForm UI end
 
     findTaskIndex(task) {
         const tasks = this.getTasks();
         tasks.findIndex(taskInTasks => (task.id === taskInTasks.id));
     }
-
-    editTask(task) {
-        this.clearAll();
-        const taskIndex = this.findTaskIndex(task);
-        //console.log("editTaskfilte working? taskIndex", taskIndex);
-        this.tasks.splice(taskIndex, 1, task);
-        //console.log("editTaskfilte working?", this.tasks);
-        this.display();
-        this.clearValues();
-        this.clearValidations();
-        // this.stats();
-    }
-
-    
 
     displayByItem(filteredItem) {
         this.clearAll();
