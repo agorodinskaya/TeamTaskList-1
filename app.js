@@ -14,55 +14,55 @@ class Task {
         this.status = status;
         // this.id = null;
     }
-    toHtmlElement() {
-        const html = `
-        <div class="task" id="task${this.id}">
-            <div class="row task" id=${this.id}>
-                <div class="col-lg-4 col-12 taskTitle order-2 order-lg-1">
-                    <a href="#task${this.id}Description" class="text-secondary icon ml-0 pl-0 small"
-                        data-toggle="collapse" data-target="#task${this.id}Description">
-                        <h6 class="text-left">${this.title}</h6>
-                    </a>
+    // toHtmlElement() {
+    //     const html = `
+    //     <div class="task" id="task${this.id}">
+    //         <div class="row task" id=${this.id}>
+    //             <div class="col-lg-4 col-12 taskTitle order-2 order-lg-1">
+    //                 <a href="#task${this.id}Description" class="text-secondary icon ml-0 pl-0 small"
+    //                     data-toggle="collapse" data-target="#task${this.id}Description">
+    //                     <h6 class="text-left">${this.title}</h6>
+    //                 </a>
 
-                </div>
-                <div class="col-lg-2 col-6 order-3 order-lg-2">
-                    ${this.date}
-                </div>
-                <div class="col-lg-2 col-6 order-4 order-lg-3">
-                ${this.assignee}
-                </div>
-                <div class="col-lg-4 order-1 order-lg-4">
-                    <ul class="row taskSummary justify-content-around">
-                        <li class="col">
-                            <a href="#newTaskInput" id = "editTaskButton" role= "button"
-                                class="d-inline btn btn-link col-2 ml-0 pl-0 mb-0 pb-0 text-dark"
-                                data-toggle="modal" data-target="#newTaskInput">
-                                <i class="fas fa-edit"></i></a>
-                        </li>
-                        <li class="col">
-                        <span class="dot rounded-circle ${this.priority} icon" data-toggle="tooltip" data-placement="top" title="Priority"></span>
-                        </li>
-                        <li class="col">
-                            <i class="icon fas fa-tag ${this.status}" data-toggle="tooltip" data-placement="top" title="Status"></i>
-                        </li>
-                        <li class="col">
-                            <button id="binForOne" type="button" class="ml-0 pl-0 btn btn-link text-dark"><i
-                                    class="icon far fa-trash-alt"></i></button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div >
-                <!--toggle tasks details-->
-                <div id ="task${this.id}Description" class = "collapse" >
-                ${this.description}
-                </div>
-                <!--toggle tasks details end-->
-            </div>
-            <hr />
-        </div>`;
-        return document.createRange().createContextualFragment(html);
-    }
+    //             </div>
+    //             <div class="col-lg-2 col-6 order-3 order-lg-2">
+    //                 ${this.date}
+    //             </div>
+    //             <div class="col-lg-2 col-6 order-4 order-lg-3">
+    //             ${this.assignee}
+    //             </div>
+    //             <div class="col-lg-4 order-1 order-lg-4">
+    //                 <ul class="row taskSummary justify-content-around">
+    //                     <li class="col">
+    //                         <a href="#newTaskInput" id = "editTaskButton" role= "button"
+    //                             class="d-inline btn btn-link col-2 ml-0 pl-0 mb-0 pb-0 text-dark"
+    //                             data-toggle="modal" data-target="#newTaskInput">
+    //                             <i class="fas fa-edit"></i></a>
+    //                     </li>
+    //                     <li class="col">
+    //                     <span class="dot rounded-circle ${this.priority} icon" data-toggle="tooltip" data-placement="top" title="Priority"></span>
+    //                     </li>
+    //                     <li class="col">
+    //                         <i class="icon fas fa-tag ${this.status}" data-toggle="tooltip" data-placement="top" title="Status"></i>
+    //                     </li>
+    //                     <li class="col">
+    //                         <button id="binForOne" type="button" class="ml-0 pl-0 btn btn-link text-dark"><i
+    //                                 class="icon far fa-trash-alt"></i></button>
+    //                     </li>
+    //                 </ul>
+    //             </div>
+    //         </div>
+    //         <div >
+    //             <!--toggle tasks details-->
+    //             <div id ="task${this.id}Description" class = "collapse" >
+    //             ${this.description}
+    //             </div>
+    //             <!--toggle tasks details end-->
+    //         </div>
+    //         <hr />
+    //     </div>`;
+    //     return document.createRange().createContextualFragment(html);
+    // }
 }
 const taskModalSaveBtn = document.querySelector('#task-modal-save');
 const alert = document.querySelector(".alert")
@@ -99,6 +99,8 @@ const newToDo = document.querySelector("#newToDo");
 const openNewTask = document.querySelector("#openForm");
 // const task = new Task(title, description, assignee, date, priority, status, id)
 
+
+
 class TaskManager {
     constructor(newToDo, openNewTask, taskModalSaveBtn, alert, alertModal, taskContainer, taskForm, taskTitle, taskDescription, taskAssignedTo, taskDueDate, priorities, progress) {
         this.tasks = [];
@@ -119,27 +121,80 @@ class TaskManager {
         this.priorities = priorities;
         this.progress = progress
     }
-    addTask(title, description, assignee, date, checkedPriority, checkedProgress) {
-        const task = new Task(title, description, assignee, date, checkedPriority, checkedProgress);
+    addTask(task) {
+        this.tasks = this.getTasks();
+        // const task = new Task(title, description, assignee, date, checkedPriority, checkedProgress);
         // task.id = this.id;
         // task.id ++;
         // console.log("addtask", task.id);
         this.tasks.push(task);
-        this.tasks.forEach((task, i) => task.id = i + 1)
+        this.tasks.forEach((task, i) => task.id = i + 1);
+        localStorage.setItem('tasks', JSON.stringify(this.tasks));
         this.display()
 
         // stats()
 
     } display() {
+        const tasks = this.getTasks();
+        console.log(tasks)
         this.clearAll();
-        this.tasks.forEach(task => this.addTaskToPage(task));
+        tasks.forEach((task) => this.addTaskToPage(task));
     }
     clearAll() {
         taskContainer.innerHTML = "";
     }
     //taskForm UI start
     addTaskToPage(task) {
-        const taskElement = task.toHtmlElement();
+        // console.log(this.tasks)
+       
+        const html = `
+        <div class="task" id="task${task.id}">
+            
+            <div class="row task" id=${task.id}>
+                <div class="col-lg-4 col-12 taskTitle order-2 order-lg-1">
+                    <a href="#task${task.id}Description" class="text-secondary icon ml-0 pl-0 small"
+                        data-toggle="collapse" data-target="#task${task.id}Description">
+                        <h6 class="text-left">${task.title}</h6>
+                    </a>
+
+                </div>
+                <div class="col-lg-2 col-6 order-3 order-lg-2">
+                    ${task.date}
+                </div>
+                <div class="col-lg-2 col-6 order-4 order-lg-3">
+                ${task.assignee}
+                </div>
+                <div class="col-lg-4 order-1 order-lg-4">
+                    <ul class="row taskSummary justify-content-around">
+                        <li class="col">
+                            <a href="#newTaskInput" id = "editTaskButton" role= "button"
+                                class="d-inline btn btn-link col-2 ml-0 pl-0 mb-0 pb-0 text-dark"
+                                data-toggle="modal" data-target="#newTaskInput">
+                                <i class="fas fa-edit"></i></a>
+                        </li>
+                        <li class="col">
+                        <span class="dot rounded-circle ${task.priority} icon" data-toggle="tooltip" data-placement="top" title="Priority"></span>
+                        </li>
+                        <li class="col">
+                            <i class="icon fas fa-tag ${task.status}" data-toggle="tooltip" data-placement="top" title="Status"></i>
+                        </li>
+                        <li class="col">
+                            <button id="binForOne" type="button" class="ml-0 pl-0 btn btn-link text-dark"><i
+                                    class="icon far fa-trash-alt"></i></button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div >
+                <!--toggle tasks details-->
+                <div id ="task${task.id}Description" class = "collapse" >
+                ${task.description}
+                </div>
+                <!--toggle tasks details end-->
+            </div>
+           
+        </div>`;
+        const taskElement = document.createRange().createContextualFragment(html);
         taskElement.querySelector('#binForOne').addEventListener("click", (e) => this.deleteTaskOnPage(e));
         taskElement.querySelector('#editTaskButton').addEventListener("click", (e) => this.editButtonClicked(e));
         document.querySelector("#tasks").append(taskElement);
@@ -149,7 +204,15 @@ class TaskManager {
             $('[data-toggle="tooltip"]').tooltip()
         });
     }
+    getTasks() {
+        if (localStorage.getItem('tasks') === null) {
+            this.tasks = [];
+        } else {
+            this.tasks = JSON.parse(localStorage.getItem('tasks'));
+        }
 
+        return this.tasks;
+    }
     openModal() {
 
         this.clearValues();
@@ -209,8 +272,8 @@ class TaskManager {
         if (this.validationTaskForm(title, description, assignee, date, checkedPriority, checkedProgress)) {
             if (taskForm.getAttribute('data-id') === null) {
                 const task = new Task(title, description, assignee, date, checkedPriority, checkedProgress);
-                this.addTask(title, description, assignee, date, checkedPriority, checkedProgress);
-                // this.addTaskToPage(task);
+                this.addTask(task);
+                // this.display(task);
                 console.log("I'm here! validation task form new input!");
                 taskForm.removeAttribute('data-id');
             } else {
@@ -247,7 +310,7 @@ class TaskManager {
     deleteTaskOnPage(event) {
         this.deleteTask(event.target.closest("div.task").id);
         event.target.closest("div.task").remove();
-        this.display();
+        // this.display();
     }
     editButtonClicked(event) {
         console.log(event.target.closest("div.task").id);
@@ -267,7 +330,8 @@ class TaskManager {
     // taskForm UI end
 
     findTaskIndex(task) {
-        this.tasks.findIndex(taskInTasks => (task.id === taskInTasks.id));
+        const tasks = this.getTasks();
+        tasks.findIndex(taskInTasks => (task.id === taskInTasks.id));
     }
 
     editTask(task) {
@@ -282,17 +346,21 @@ class TaskManager {
         // this.stats();
     }
 
-    deleteTask(task) {
-        const taskIndex = this.findTaskIndex(task);
-        this.tasks.splice(taskIndex, 1);
+    deleteTask(id) {
+        const tasks = this.getTasks();    
+        console.log(tasks)   
+        this.tasks.forEach((task, index) => {
+            if (task.id === id) {
+                tasks.splice(index, 1);
+            }
+        })
+
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    
+        // const taskIndex = this.findTaskIndex(task);
+        // this.tasks.splice(taskIndex, 1);
         // this.stats() 
     }
-
-    deleteAll() {
-        this.tasks.length = 0;
-        this.clearAll();
-    }
-
 
     displayByItem(filteredItem) {
         this.clearAll();
@@ -361,6 +429,11 @@ class TaskManager {
             alert.classList.remove(`${action}`);
         }, 1500);
     }
+    deleteAll() {
+        this.tasks.length = 0;
+        this.clearAll();
+        localStorage.removeItem("tasks");
+    }
     deleteClicked() {
         document.querySelector("#deleteAll").addEventListener("click", function () {
             this.deleteAll();
@@ -391,6 +464,7 @@ const taskmanager = new TaskManager(newToDo, openNewTask, taskModalSaveBtn, aler
 // **********************Events***********************************************************************************
 //=================================================================================================================
 
+window.addEventListener("DOMContentLoaded", taskmanager.display());
 //Open modal:
 openNewTask.addEventListener("click", function (event) {
     event.preventDefault();
