@@ -224,7 +224,6 @@ class TaskManager {
             taskTitle.classList.add("is-invalid");
         }
         newToDo.value = null;
-
     }
 
 
@@ -241,22 +240,19 @@ class TaskManager {
         taskDetails.map(item => item.classList.remove("is-invalid", "is-valid"));
     }
     formFilledOut() {
-
-        //console.log("check ID in saveButtonClicked "+temp);
+       //console.log("check ID in saveButtonClicked "+temp);
         const title = taskTitle.value;
         const description = taskDescription.value;
         const assignee = taskAssignedTo.value;
         const date = taskDueDate.value;
         //select Priority , select Status
         // let priority = selectPriority.find(priority => priority.checked).value;
-
         // let status = selectStatus.find(status => status.checked).value;
         let checkedPriority;
         for (let i = 0; i < priorities.length; i++) {
             if (priorities[i].checked) {
                 checkedPriority = priorities[i].value;
                 // console.log(typeof checkedPriority, checkedPriority);
-
             }
         }
 
@@ -291,7 +287,6 @@ class TaskManager {
                 // console.log("debugging review ", this.tasks);
                 taskForm.removeAttribute('data-id');
                 this.alertModalSetup("Item successfully updated", "alert-success");
-
                 setTimeout(function () {
                     $("#newTaskInput").modal("hide"); // set data-modal ...
                 }, 1000);
@@ -323,12 +318,10 @@ class TaskManager {
         })
         console.log(tasks)
         localStorage.setItem('tasks', JSON.stringify(tasks));
-
         // this.stats() 
     }
     editButtonClicked(event) {
         // console.log(event.target.closest("div.task").id);
-
         taskModalSaveBtn.textContent = "Edit";
         taskModalSaveBtn.classList.add('btn-danger');
         const task = this.tasks.find(task => task.id === Number(event.target.closest("div.task").id));
@@ -344,8 +337,7 @@ class TaskManager {
 
     editTask(title, description, assignee, date, checkedPriority, checkedProgress, id) {
         this.tasks = this.getTasks();
-        const editTask = new Task(title, description, assignee, date, checkedPriority, checkedProgress)
-        
+        const editTask = new Task(title, description, assignee, date, checkedPriority, checkedProgress)    
         let index = this.tasks.findIndex(task => (task.id === id));
         console.log(index)
         const tasks = this.tasks.splice(index, 1, editTask);
@@ -407,9 +399,7 @@ class TaskManager {
             this.notEmptyandLongerThan(assignee, 8) && dueDate && priority && status) {
             return true;
         }
-
-        return false;
-
+         return false;
     }
     alertModalSetup(text, action) {
         alertModal.textContent = text;
@@ -440,11 +430,6 @@ class TaskManager {
         })
     }
 }
-
-
-
-
-
 
 
 //The buttons on the form
@@ -593,13 +578,13 @@ clearAllBtn.addEventListener('click', function () {
 //     "high",
 //     "review",
 //     4);
-const task4 = new Task("Debrief on next steps with Yumi and Zoe",
-    "01/08/2020",
-    "AG",
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quisquam consequatur commodi non vitae harum autem quibusdam quam ratione deserunt!",
-    "low",
-    "review",
-    4);
+// const task4 = new Task("Debrief on next steps with Yumi and Zoe",
+//     "01/08/2020",
+//     "AG",
+//     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quisquam consequatur commodi non vitae harum autem quibusdam quam ratione deserunt!",
+//     "low",
+//     "review",
+//     4);
 
 //const taskmanager = new TaskManager();
 
