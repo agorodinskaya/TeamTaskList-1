@@ -433,66 +433,66 @@ clearAllBtn.addEventListener('click', function () {
 
 
 
-// //navigation bar
-// const getTotal = document.querySelector("#getTotal");
-// const totalNumber = document.querySelector("#getTotal > span");
-// getTotal.addEventListener("click", () => taskmanager.display());
+//navigation bar
+const getTotal = document.querySelector("#getTotal");
+const totalNumber = document.querySelector("#getTotal > span");
+getTotal.addEventListener("click", () => taskmanager.display());
 
 
-// const getDone = document.querySelector("#getDone");
-// const getReview = document.querySelector("#getReview");
-// const getInProgress = document.querySelector("#getInProgress");
-// const getToDo = document.querySelector("#getToDo")
+const getDone = document.querySelector("#getDone");
+const getReview = document.querySelector("#getReview");
+const getInProgress = document.querySelector("#getInProgress");
+const getToDo = document.querySelector("#getToDo")
 
-// getDone.addEventListener("click", function () {
-//     const done = taskmanager.getStatsOfStatus()[0];
-//     taskmanager.displayByItem(done);
-// });
-// getReview.addEventListener("click", function () {
-//     const review = taskmanager.getStatsOfStatus()[1];
-//     taskmanager.displayByItem(review);
-// });
-// getInProgress.addEventListener("click", function () {
-//     const inProgress = taskmanager.getStatsOfStatus()[2];
-//     taskmanager.displayByItem(inProgress);
-// });
-// getToDo.addEventListener("click", function () {
-//     const toDo = taskmanager.getStatsOfStatus()[3];
-//     taskmanager.displayByItem(toDo);
-// });
-// const getHigh = document.querySelector("#getHigh");
-// const getMedium = document.querySelector("#getMedium");
-// const getLow = document.querySelector("#getLow");
-// const getNo = document.querySelector("#getNo")
+getDone.addEventListener("click", function () {
+    const done = taskmanager.getStatsOfStatus()[0];
+    taskmanager.displayByItem(done);
+});
+getReview.addEventListener("click", function () {
+    const review = taskmanager.getStatsOfStatus()[1];
+    taskmanager.displayByItem(review);
+});
+getInProgress.addEventListener("click", function () {
+    const inProgress = taskmanager.getStatsOfStatus()[2];
+    taskmanager.displayByItem(inProgress);
+});
+getToDo.addEventListener("click", function () {
+    const toDo = taskmanager.getStatsOfStatus()[3];
+    taskmanager.displayByItem(toDo);
+});
+const getHigh = document.querySelector("#getHigh");
+const getMedium = document.querySelector("#getMedium");
+const getLow = document.querySelector("#getLow");
+const getNo = document.querySelector("#getNo")
 
-// getHigh.addEventListener("click", function () {
-//     const high = taskmanager.getStatsOfPriority()[0];
-//     taskmanager.displayByItem(high);
-// });
-// getMedium.addEventListener("click", function () {
-//     const medium = taskmanager.getStatsOfPriority()[1];
-//     taskmanager.displayByItem(medium);
-// });
-// getLow.addEventListener("click", function () {
-//     const low = taskmanager.getStatsOfPriority()[2];
-//     taskmanager.displayByItem(low);
-// });
-// getNo.addEventListener("click", function () {
-//     const no = taskmanager.getStatsOfPriority()[3];
-//     taskmanager.displayByItem(no);
-// });
+getHigh.addEventListener("click", function () {
+    const high = taskmanager.getStatsOfPriority()[0];
+    taskmanager.displayByItem(high);
+});
+getMedium.addEventListener("click", function () {
+    const medium = taskmanager.getStatsOfPriority()[1];
+    taskmanager.displayByItem(medium);
+});
+getLow.addEventListener("click", function () {
+    const low = taskmanager.getStatsOfPriority()[2];
+    taskmanager.displayByItem(low);
+});
+getNo.addEventListener("click", function () {
+    const no = taskmanager.getStatsOfPriority()[3];
+    taskmanager.displayByItem(no);
+});
 
-// Status: done =text-success, Review =text-info, InProgress=text-warning, toDo = text-danger;
-// Priority: high = bg-danger, medium = bg-warning, low = bg-warning, no = bg-danger;
-// function stats() {
-//     getTotal.querySelector("span").innerHTML = `${taskmanager.tasks.length}`;
-//     getDone.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.status === "text-success").length}`;
-//     getReview.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.status === "text-info").length}`;
-//     getInProgress.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.status === "text-warning").length}`;
-//     getToDo.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.status === "text-danger").length}`;
-//     getNo.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.priority === "bg-dark").length}`;
-//     getLow.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.priority === "bg-info").length}`;
-//     getMedium.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.priority === "bg-warning").length}`;
-//     getHigh.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.priority === "bg-danger").length}`;    
-// }
+Status: done =text-success, Review =text-info, InProgress=text-warning, toDo = text-danger;
+Priority: high = bg-danger, medium = bg-warning, low = bg-warning, no = bg-danger;
+function stats() {
+    getTotal.querySelector("span").innerHTML = `${taskmanager.tasks.length}`;
+    getDone.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.status === "text-success").length}`;
+    getReview.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.status === "text-info").length}`;
+    getInProgress.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.status === "text-warning").length}`;
+    getToDo.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.status === "text-danger").length}`;
+    getNo.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.priority === "bg-dark").length}`;
+    getLow.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.priority === "bg-info").length}`;
+    getMedium.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.priority === "bg-warning").length}`;
+    getHigh.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.priority === "bg-danger").length}`;    
+}
 
