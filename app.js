@@ -482,17 +482,17 @@ getNo.addEventListener("click", function () {
     taskmanager.displayByItem(no);
 });
 
-Status: done =text-success, Review =text-info, InProgress=text-warning, toDo = text-danger;
-Priority: high = bg-danger, medium = bg-warning, low = bg-warning, no = bg-danger;
-function stats() {
-    getTotal.querySelector("span").innerHTML = `${taskmanager.tasks.length}`;
-    getDone.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.status === "text-success").length}`;
-    getReview.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.status === "text-info").length}`;
-    getInProgress.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.status === "text-warning").length}`;
-    getToDo.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.status === "text-danger").length}`;
-    getNo.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.priority === "bg-dark").length}`;
-    getLow.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.priority === "bg-info").length}`;
-    getMedium.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.priority === "bg-warning").length}`;
-    getHigh.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.priority === "bg-danger").length}`;    
-}
+////Status: done =text-success, Review =text-info, InProgress=text-warning, toDo = text-danger;
+////Priority: high = bg-danger, medium = bg-warning, low = bg-info, no = bg-dark;
+// function stats() {
+//     getTotal.querySelector("span").innerHTML = `${taskmanager.tasks.length}`;
+//     getDone.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.status === "text-success").length}`;
+//     getReview.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.status === "text-info").length}`;
+//     getInProgress.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.status === "text-warning").length}`;
+//     getToDo.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.status === "text-danger").length}`;
+//     getNo.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.priority === "bg-dark").length}`;
+//     getLow.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.priority === "bg-info").length}`;
+//     getMedium.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.priority === "bg-warning").length}`;
+//     getHigh.querySelector("span").innerHTML = `${taskmanager.tasks.filter(task => task.priority === "bg-danger").length}`;    
+// }
 
