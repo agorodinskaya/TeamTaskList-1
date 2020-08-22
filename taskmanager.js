@@ -47,17 +47,20 @@ export default class TaskManager {
 
     this.editId = "";
     this.sortedArr = [];
+    this.startIndex = 0;
   }
   addTask(task) {
     this.tasks = this.getTasks();
-    this.sortedArr = this.tasks.sort((a, b) => a.id - b.id);
-    let startIndex = Object.values(this.sortedArr[this.tasks.length - 1])[6];
+    if (this.tasks.length > 0) {
+      this.sortedArr = this.tasks.sort((a, b) => a.id - b.id);
+      this.startIndex = Object.values(this.sortedArr[this.tasks.length - 1])[6];
+    }
     this.tasks.push(task);
     this.tasks.forEach((task, i) => {
       if (this.tasks.length === 0) {
         this.id = i + 1;
       } else if (this.tasks.length > 0) {
-        this.id = startIndex + 1;
+        this.id = this.startIndex + 1;
       }
     });
 
