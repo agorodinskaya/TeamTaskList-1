@@ -14,7 +14,9 @@ export default class TaskManager {
     taskAssignedTo,
     taskDueDate,
     priorities,
-    progress
+    progress,
+    selectPriority,
+    selectStatus
   ) {
     this.tasks = [];
     this.id = 0;
@@ -35,38 +37,34 @@ export default class TaskManager {
       taskAssignedTo,
       taskDueDate,
     ];
-    //Priority && Status
-    // priorities creating an array of options:
-    const high = document.querySelector("#highPriority");
-    const medium = document.querySelector("#mediumPriority");
-    const low = document.querySelector("#lowPriority");
-    const nopriority = document.querySelector("#noPriority");
-    this.priorities = [high, medium, low, nopriority];
 
-    //progress :
-    const done = document.querySelector("#statusDone");
-    const review = document.querySelector("#statusReview");
-    const inprogress = document.querySelector("#statusInProgress");
-    const todo = document.querySelector("#statusToDo");
-    this.progress = [done, review, inprogress, todo];
+    this.priorities = priorities;
 
-    this.selectPriority = [
-      ...document.forms.taskForm.querySelectorAll("input[name=priority]"),
-    ];
-    this.selectStatus = [
-      ...document.forms.taskForm.querySelectorAll("input[name=status]"),
-    ];
+    this.progress = progress;
+
+    this.selectPriority = selectPriority;
+    this.selectStatus = selectStatus;
 
     this.editId = "";
+    this.sortedArr = [];
   }
   addTask(task) {
     this.tasks = this.getTasks();
+    this.sortedArr = this.tasks.sort((a, b) => a.id - b.id);
+    let startIndex = Object.values(this.sortedArr[this.tasks.length - 1])[6];
     this.tasks.push(task);
-    this.tasks.forEach((task, i) => (this.id = i + 1));
-    // this.id ++;
+    this.tasks.forEach((task, i) => {
+      if (this.tasks.length === 0) {
+        this.id = i + 1;
+      } else if (this.tasks.length > 0) {
+        this.id = startIndex + 1;
+      }
+    });
+
     task.id = this.id;
-    console.log(this.id);
-    console.log(task.id);
+
+    // console.log(this.id);
+    // console.log(task.id);
     localStorage.setItem("tasks", JSON.stringify(this.tasks));
     this.display();
 
@@ -222,6 +220,7 @@ export default class TaskManager {
           checkedPriority,
           checkedProgress
         );
+
         this.addTask(task);
         console.log("I'm here! validation task form new input!");
         taskForm.removeAttribute("data-id");
@@ -268,7 +267,6 @@ export default class TaskManager {
   }
   deleteTask(id) {
     this.tasks = this.getTasks();
-    console.log(this.tasks);
     const tasks = this.tasks.filter(function (task) {
       if (task.id !== id) {
         return task;
@@ -291,12 +289,10 @@ export default class TaskManager {
     document.forms.taskForm.taskDescription.value = task.description;
     document.forms.taskForm.taskAssignedTo.value = task.assignee;
     document.forms.taskForm.taskDueDate.value = task.date;
-    this.selectPriority.find(
+    this.priorities.find(
       (priority) => priority.value === task.priority
     ).checked = true;
-    this.selectStatus.find(
-      (status) => status.value === task.status
-    ).checked = true;
+    this.progress.find((status) => status.value === task.status).checked = true;
   }
 
   editTask(
@@ -341,7 +337,7 @@ export default class TaskManager {
   }
   getStatsOfStatus() {
     const statusStats = [];
-    selectStatus.forEach((status) => {
+    this.selectStatus.forEach((status) => {
       statusStats.push(
         this.tasks.filter((task) => task.status === status.value)
       );
@@ -350,7 +346,7 @@ export default class TaskManager {
   }
   getStatsOfPriority() {
     const priorityStats = [];
-    selectPriority.forEach((priority) => {
+    this.selectPriority.forEach((priority) => {
       priorityStats.push(
         this.tasks.filter((task) => task.priority === priority.value)
       );

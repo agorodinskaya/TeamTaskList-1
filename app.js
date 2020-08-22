@@ -63,8 +63,8 @@ const taskmanager = new TaskManager(
   taskDescription,
   taskAssignedTo,
   taskDueDate,
-  selectPriority,
-  selectStatus
+  priorities,
+  progress
 );
 //=================================================================================================================
 // **********************Events***********************************************************************************
