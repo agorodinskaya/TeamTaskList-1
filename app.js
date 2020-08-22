@@ -1,5 +1,4 @@
-// import Task from "./task.js";
-import TaskManager from "./taskmanager.js";
+import { TaskManager } from "./taskmanager.js";
 
 const taskModalSaveBtn = document.querySelector("#task-modal-save");
 const alert = document.querySelector(".alert");
