@@ -82,10 +82,7 @@ export default class TaskManager {
   clearAll() {
     this.taskContainer.innerHTML = "";
   }
-  //taskForm UI start
-  addTaskToPage(task) {
-    // console.log(this.tasks)
-
+  toHTML(task) {
     const html = `
             <div class="task" id="task${task.id}">
                 
@@ -133,7 +130,17 @@ export default class TaskManager {
                 </div>
             
             </div>`;
+
+    return html;
+  }
+  toHTMLElement(task) {
+    const html = this.toHTML(task);
     const taskElement = document.createRange().createContextualFragment(html);
+    return taskElement;
+  }
+  //taskForm UI start
+  addTaskToPage(task) {
+    const taskElement = this.toHTMLElement(task);
     taskElement
       .querySelector("#binForOne")
       .addEventListener("click", (e) => this.deleteTaskOnPage(e));
@@ -146,6 +153,7 @@ export default class TaskManager {
     $(function () {
       $('[data-toggle="tooltip"]').tooltip();
     });
+    // return taskElement;
   }
   getTasks() {
     if (localStorage.getItem("tasks") === null) {
