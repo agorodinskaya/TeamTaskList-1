@@ -14,8 +14,10 @@ const task = new Task(
   "task1"
 );
 const taskmanager = new TaskManager();
-let parent;
+// let parent;
+// beforeEach(()=>{
 
+// }
 test("html to string with all the attributes", () => {
   const htmlString = taskmanager.toHTML(task);
   expect(htmlString).toContain("task1");
