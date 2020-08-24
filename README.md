@@ -1,3 +1,3 @@
 ### Task Planner :
 
-see demo [HERE](https://tender-payne-99092c.netlify.app/)
+see demo [HERE](https://goofy-archimedes-84bd01.netlify.app/)
