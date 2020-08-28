@@ -39,12 +39,9 @@ export default class TaskManager {
     ];
 
     this.priorities = priorities;
-
     this.progress = progress;
-
     this.selectPriority = selectPriority;
     this.selectStatus = selectStatus;
-
     this.editId = "";
     this.sortedArr = [];
     this.startIndex = 0;
@@ -65,11 +62,7 @@ export default class TaskManager {
     });
 
     task.id = this.id;
-
-    // console.log(this.id);
-    // console.log(task.id);
     localStorage.setItem("tasks", JSON.stringify(this.tasks));
-    // this.display();
     return this.tasks;
     // stats()
   }
@@ -135,7 +128,6 @@ export default class TaskManager {
                 </div>
             
             </div>`;
-
     return html;
   }
   toHTMLElement(task) {
@@ -180,7 +172,6 @@ export default class TaskManager {
     }
     newToDo.value = null;
   }
-
   clearValues() {
     this.taskModalSaveBtn.textContent = "Save changes";
     this.taskModalSaveBtn.classList.remove("btn-danger");
@@ -189,7 +180,6 @@ export default class TaskManager {
     this.priorities.map((priority) => (priority.checked = false));
     this.progress.map((status) => (status.checked = false));
   }
-
   clearValidations() {
     this.taskDetails.map((item) =>
       item.classList.remove("is-invalid", "is-valid")
@@ -207,7 +197,6 @@ export default class TaskManager {
         // console.log(typeof checkedPriority, checkedPriority);
       }
     }
-
     let checkedProgress;
     for (let i = 0; i < this.progress.length; i++) {
       if (this.progress[i].checked) {
@@ -332,12 +321,10 @@ export default class TaskManager {
       checkedProgress,
       (id = this.id)
     );
-    console.log(id);
     let index = this.tasks.findIndex((task) => task.id === id);
     // console.log(index)
     const tasks = this.tasks.splice(index, 1, editTask);
     localStorage.setItem("tasks", JSON.stringify(this.tasks));
-    console.log(tasks);
     return tasks;
   }
 
@@ -370,7 +357,6 @@ export default class TaskManager {
     const tasks = this.getTasks();
     tasks.findIndex((taskInTasks) => task.id === taskInTasks.id);
   }
-
   displayByItem(filteredItem) {
     this.clearAll();
     filteredItem.forEach((task) => this.addTaskToPage(task));
@@ -393,12 +379,10 @@ export default class TaskManager {
     });
     return priorityStats;
   }
-
   todayConvertor() {
     const today = new Date();
     return today.setHours(0, 0, 0, 0);
   }
-
   validation(taskItem, boolean) {
     if (boolean) {
       taskItem.classList.remove("is-invalid");
@@ -408,11 +392,9 @@ export default class TaskManager {
       taskItem.classList.add("is-invalid");
     }
   }
-
   notEmptyandLongerThan(taskItem, number) {
     return taskItem && taskItem.length > number;
   }
-
   validationTaskForm(title, description, assignee, date, priority, status) {
     const dueDate = new Date(date);
     // const today = this.todayConvertor();
