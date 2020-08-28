@@ -39,12 +39,9 @@ export default class TaskManager {
     ];
 
     this.priorities = priorities;
-
     this.progress = progress;
-
     this.selectPriority = selectPriority;
     this.selectStatus = selectStatus;
-
     this.editId = "";
     this.sortedArr = [];
     this.startIndex = 0;
@@ -65,14 +62,15 @@ export default class TaskManager {
     });
 
     task.id = this.id;
-
-    // console.log(this.id);
-    // console.log(task.id);
     localStorage.setItem("tasks", JSON.stringify(this.tasks));
-    this.display();
-
+    return this.tasks;
     // stats()
   }
+  readTasks(task) {
+    this.addTask(task);
+    this.display();
+  }
+
   display() {
     const tasks = this.getTasks();
     console.log(tasks);
@@ -130,7 +128,6 @@ export default class TaskManager {
                 </div>
             
             </div>`;
-
     return html;
   }
   toHTMLElement(task) {
@@ -175,7 +172,6 @@ export default class TaskManager {
     }
     newToDo.value = null;
   }
-
   clearValues() {
     this.taskModalSaveBtn.textContent = "Save changes";
     this.taskModalSaveBtn.classList.remove("btn-danger");
@@ -184,7 +180,6 @@ export default class TaskManager {
     this.priorities.map((priority) => (priority.checked = false));
     this.progress.map((status) => (status.checked = false));
   }
-
   clearValidations() {
     this.taskDetails.map((item) =>
       item.classList.remove("is-invalid", "is-valid")
@@ -202,7 +197,6 @@ export default class TaskManager {
         // console.log(typeof checkedPriority, checkedPriority);
       }
     }
-
     let checkedProgress;
     for (let i = 0; i < this.progress.length; i++) {
       if (this.progress[i].checked) {
@@ -232,7 +226,7 @@ export default class TaskManager {
           checkedProgress
         );
 
-        this.addTask(task);
+        this.readTasks(task);
         console.log("I'm here! validation task form new input!");
         taskForm.removeAttribute("data-id");
         this.alertModalSetup("Item successfully created", "alert-success");
@@ -278,13 +272,16 @@ export default class TaskManager {
   }
   deleteTask(id) {
     this.tasks = this.getTasks();
+    // const deletedTask = this.tasks.findIndex((task) => task.id === id);
     const tasks = this.tasks.filter(function (task) {
       if (task.id !== id) {
         return task;
       }
     });
-    console.log(tasks);
+    // console.log(deletedTask);
     localStorage.setItem("tasks", JSON.stringify(tasks));
+    console.log(tasks);
+    return tasks;
     // this.stats()
   }
   editButtonClicked(event) {
@@ -305,8 +302,7 @@ export default class TaskManager {
     ).checked = true;
     this.progress.find((status) => status.value === task.status).checked = true;
   }
-
-  editTask(
+  editList(
     title,
     description,
     assignee,
@@ -325,11 +321,31 @@ export default class TaskManager {
       checkedProgress,
       (id = this.id)
     );
-    console.log(id);
     let index = this.tasks.findIndex((task) => task.id === id);
     // console.log(index)
     const tasks = this.tasks.splice(index, 1, editTask);
     localStorage.setItem("tasks", JSON.stringify(this.tasks));
+    return tasks;
+  }
+
+  editTask(
+    title,
+    description,
+    assignee,
+    date,
+    checkedPriority,
+    checkedProgress,
+    id
+  ) {
+    this.editList(
+      title,
+      description,
+      assignee,
+      date,
+      checkedPriority,
+      checkedProgress,
+      id
+    );
     this.display();
     this.clearValues();
     this.clearValidations();
@@ -341,7 +357,6 @@ export default class TaskManager {
     const tasks = this.getTasks();
     tasks.findIndex((taskInTasks) => task.id === taskInTasks.id);
   }
-
   displayByItem(filteredItem) {
     this.clearAll();
     filteredItem.forEach((task) => this.addTaskToPage(task));
@@ -364,12 +379,10 @@ export default class TaskManager {
     });
     return priorityStats;
   }
-
   todayConvertor() {
     const today = new Date();
     return today.setHours(0, 0, 0, 0);
   }
-
   validation(taskItem, boolean) {
     if (boolean) {
       taskItem.classList.remove("is-invalid");
@@ -379,11 +392,9 @@ export default class TaskManager {
       taskItem.classList.add("is-invalid");
     }
   }
-
   notEmptyandLongerThan(taskItem, number) {
     return taskItem && taskItem.length > number;
   }
-
   validationTaskForm(title, description, assignee, date, priority, status) {
     const dueDate = new Date(date);
     // const today = this.todayConvertor();
