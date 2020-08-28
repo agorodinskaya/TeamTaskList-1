@@ -24,23 +24,7 @@ beforeEach(() => {
   document.documentElement.innerHTML = html.toString();
 });
 
-// set to html :
-test("html to string with all the attributes", () => {
-  const htmlString = taskmanager.toHTML(task);
-  expect(htmlString).toContain("task1");
-  expect(htmlString).toContain("Task Name");
-  expect(htmlString).toContain("Task Description");
-  expect(htmlString).toContain("Task Assignee");
-  expect(htmlString).toContain("2020-08-23");
-  expect(htmlString).toContain("bg-danger");
-  expect(htmlString).toContain("text-success");
-});
-// test("should be able to add Task element to DOM", () => {
-//   const element = taskmanager.toHTMLElement(task);
-//   document.body.append(element);
-//   expect(document.body.children.length).toBe(1);
-// }); //// see snapshot test; check the first child ?
-
+/////////////////Array manipulation : //////////////////////////////////////////////////////////////////////////
 // add task :
 test("should add task to array", () => {
   const newTask = taskmanager.addTask(task);
@@ -74,4 +58,38 @@ test("should update the task in array correctly", () => {
 test("after update task the array length remains the same", () => {
   expect(taskmanager.tasks.length).not.toBe(2);
   expect(taskmanager.tasks.length).toBe(1);
+});
+
+//////////////adding to DOM:
+
+// set to html :
+test("html to string with all the attributes", () => {
+  const htmlString = taskmanager.toHTML(task);
+  expect(htmlString).toContain("task1");
+  expect(htmlString).toContain("Task Name");
+  expect(htmlString).toContain("Task Description");
+  expect(htmlString).toContain("Task Assignee");
+  expect(htmlString).toContain("2020-08-23");
+  expect(htmlString).toContain("bg-danger");
+  expect(htmlString).toContain("text-success");
+});
+
+// add to DOM :
+test("should be able to add Task element to DOM", () => {
+  document.body.innerHTML = '<div id="taskContainer"></div>';
+  let taskContainer = document.getElementById("taskContainer");
+  const element = taskmanager.toHTMLElement(task);
+  taskContainer.append(element);
+  expect(taskContainer.children.length).toBe(1);
+}); //// see snapshot test; check the first child ?
+
+// delete from DOM :
+test("should be able to delete Task element to DOM", () => {
+  document.body.innerHTML = '<div id="taskContainer"></div>';
+  let taskContainer = document.getElementById("taskContainer");
+  const element = taskmanager.toHTMLElement(task);
+  taskContainer.append(element);
+  expect(taskContainer.children.length).toBe(1);
+  taskmanager.deleteTask(task.id);
+  expect(taskContainer.innerHTML).not.toContain(task);
 });
