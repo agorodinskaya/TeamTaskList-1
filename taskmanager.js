@@ -69,10 +69,15 @@ export default class TaskManager {
     // console.log(this.id);
     // console.log(task.id);
     localStorage.setItem("tasks", JSON.stringify(this.tasks));
-    this.display();
-
+    // this.display();
+    return this.tasks;
     // stats()
   }
+  readTasks(task) {
+    this.addTask(task);
+    this.display();
+  }
+
   display() {
     const tasks = this.getTasks();
     console.log(tasks);
@@ -232,7 +237,7 @@ export default class TaskManager {
           checkedProgress
         );
 
-        this.addTask(task);
+        this.readTasks(task);
         console.log("I'm here! validation task form new input!");
         taskForm.removeAttribute("data-id");
         this.alertModalSetup("Item successfully created", "alert-success");
@@ -278,13 +283,16 @@ export default class TaskManager {
   }
   deleteTask(id) {
     this.tasks = this.getTasks();
+    // const deletedTask = this.tasks.findIndex((task) => task.id === id);
     const tasks = this.tasks.filter(function (task) {
       if (task.id !== id) {
         return task;
       }
     });
-    console.log(tasks);
+    // console.log(deletedTask);
     localStorage.setItem("tasks", JSON.stringify(tasks));
+    console.log(tasks);
+    return tasks;
     // this.stats()
   }
   editButtonClicked(event) {
@@ -305,8 +313,7 @@ export default class TaskManager {
     ).checked = true;
     this.progress.find((status) => status.value === task.status).checked = true;
   }
-
-  editTask(
+  editList(
     title,
     description,
     assignee,
@@ -330,6 +337,28 @@ export default class TaskManager {
     // console.log(index)
     const tasks = this.tasks.splice(index, 1, editTask);
     localStorage.setItem("tasks", JSON.stringify(this.tasks));
+    console.log(tasks);
+    return tasks;
+  }
+
+  editTask(
+    title,
+    description,
+    assignee,
+    date,
+    checkedPriority,
+    checkedProgress,
+    id
+  ) {
+    this.editList(
+      title,
+      description,
+      assignee,
+      date,
+      checkedPriority,
+      checkedProgress,
+      id
+    );
     this.display();
     this.clearValues();
     this.clearValidations();
