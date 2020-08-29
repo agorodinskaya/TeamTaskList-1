@@ -74,6 +74,6 @@ npm test
 ## Authors :
 
 - **Yumi Patton** [Yumi's github](https://github.com/YPatton86)
-- **Anastasia Gorodinskaya** [Anastasia's](https://github.com/agorodinskaya)
+- **Anastasia Gorodinskaya** [Anastasia's github](https://github.com/agorodinskaya)
 
 ## Acknowledgments:
