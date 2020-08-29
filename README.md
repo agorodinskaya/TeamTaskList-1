@@ -23,7 +23,7 @@ The app has been tested with [jest](https://jestjs.io/docs/en/getting-started).
 
 #### Demo :
 
-see demo [HERE](https://goofy-archimedes-84bd01.netlify.app/)
+To see the demo please follow the link [Task Planner](https://goofy-archimedes-84bd01.netlify.app/).
 
 ##### How to use :
 
@@ -49,13 +49,13 @@ git clone https://github.com/YPatton86/TeamTaskList
 
 - Enter the folder TeamTaskList :
 
-```bash
+```
 cd TeamTaskList
 ```
 
 - Run command :
 
-```bash
+```
 npm start
 ```
 
@@ -65,7 +65,7 @@ npm start
 
 * - to run tests run the following command :
 
-```bash
+```
 npm test
 ```
 
