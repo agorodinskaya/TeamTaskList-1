@@ -47,6 +47,12 @@ see demo [HERE](https://goofy-archimedes-84bd01.netlify.app/)
 git clone https://github.com/YPatton86/TeamTaskList
 ```
 
+- Enter the folder TeamTaskList :
+
+```bash
+cd TeamTaskList
+```
+
 - Run command :
 
 ```bash
@@ -54,8 +60,10 @@ npm start
 ```
 
 - Add tests :
-- use file task.test.js or taskmanager.test.js
-- to run tests run the following command :
+
+* - use file task.test.js or taskmanager.test.js
+
+* - to run tests run the following command :
 
 ```bash
 npm test
