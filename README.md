@@ -41,29 +41,29 @@ To see the demo please follow the link [Task Planner](https://goofy-archimedes-8
 
 <!-- - Fork the repository : -->
 
-- Clone repository :
+1. Clone repository :
 
 ```bash
 git clone https://github.com/YPatton86/TeamTaskList
 ```
 
-- Enter the folder TeamTaskList :
+2. Enter the folder TeamTaskList :
 
 ```
 cd TeamTaskList
 ```
 
-- Run command :
+3. Run command :
 
 ```
 npm start
 ```
 
-- Add tests :
+4. Add tests :
 
-* - use file task.test.js or taskmanager.test.js
+- use file task.test.js or taskmanager.test.js
 
-* - to run tests run the following command :
+- to run tests run the following command :
 
 ```
 npm test
