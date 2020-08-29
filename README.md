@@ -6,7 +6,7 @@ The app was created as part of [Generation Australia assignment](https://austral
 
 ## Technical description :
 
-##### Languages and frameworks :
+#### Languages and frameworks :
 
 The app is written with :
 
@@ -15,11 +15,11 @@ The app is written with :
 - Bootstrap 4.5
 - Vanilla JS
 
-The app uses local storage to keep the created, updated and deleted tasks.
+The app uses [local storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) to keep the created, updated and deleted tasks.
 
-### Testing :
+#### Testing :
 
-The app has been tested with [jest](https://jestjs.io/docs/en/getting-started)
+The app has been tested with [jest](https://jestjs.io/docs/en/getting-started).
 
 ### Demo :
 
@@ -35,6 +35,8 @@ see demo [HERE](https://goofy-archimedes-84bd01.netlify.app/)
 
 - Clear all :
 
+- Local storage, how to access:
+
 ## Getting started :
 
 - Clone repository;
@@ -44,11 +46,15 @@ see demo [HERE](https://goofy-archimedes-84bd01.netlify.app/)
 npm start
 ```
 
+- Add tests :
+- use file task.test.js or taskmanager.test.js
 - to run tests run the following command :
 
 ```bash
 npm test
 ```
+
+- add desired tests and wait for the results in the console.
 
 ## Authors :
 
