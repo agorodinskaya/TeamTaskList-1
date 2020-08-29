@@ -21,7 +21,7 @@ The app uses [local storage](https://developer.mozilla.org/en-US/docs/Web/API/Wi
 
 The app has been tested with [jest](https://jestjs.io/docs/en/getting-started).
 
-### Demo :
+#### Demo :
 
 see demo [HERE](https://goofy-archimedes-84bd01.netlify.app/)
 
@@ -39,7 +39,14 @@ see demo [HERE](https://goofy-archimedes-84bd01.netlify.app/)
 
 ## Getting started :
 
-- Clone repository;
+<!-- - Fork the repository : -->
+
+- Clone repository :
+
+```bash
+git clone https://github.com/YPatton86/TeamTaskList
+```
+
 - Run command :
 
 ```bash
