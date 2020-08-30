@@ -26,7 +26,7 @@ The app has been tested with [jest](https://jestjs.io/docs/en/getting-started).
 
 #### Demo :
 
-To see life demo please follow the link [Task Planner](https://goofy-archimedes-84bd01.netlify.app/).
+To see the demo please follow the link [Task Planner](https://goofy-archimedes-84bd01.netlify.app/).
 
 ##### What it does and how it works:
 
@@ -46,7 +46,7 @@ To see life demo please follow the link [Task Planner](https://goofy-archimedes-
 
 ## Getting started :
 
-0. Fork the repository
+<!-- 0. Fork the repository -->
 
 1. Clone repository to your local machine :
 
