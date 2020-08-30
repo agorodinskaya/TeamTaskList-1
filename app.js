@@ -119,7 +119,7 @@ clearAllBtn.addEventListener("click", function () {
   taskmanager.deleteAll();
   taskmanager.alertSetup(
     "Successfully removed items from the list",
-    "alert-info"
+    "alert-success"
   );
 });
 
