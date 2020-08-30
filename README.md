@@ -30,10 +30,13 @@ To see life demo please follow the link [Task Planner](https://goofy-archimedes-
 
 ##### What it does and how it works:
 
-- ![Creates and validates the form with tasks](demo/create.gif)
-- ![Updates and deletes task](demo/editdeletelocalst.gif)
+- Create task and validate content of the information in the form prior to creation of the task:
+  ![Creates and validates the form with tasks](demo/create.gif)
+- Update and delte task - including in local storage:
+  ![Updates and deletes task](demo/editdeletelocalst.gif)
 - Clears all tasks
-- ![Filters tasks by priority or progress status](demo/filter.gif)
+- Filter tasks by priority and status :
+  ![Filters tasks by priority or progress status](demo/filter.gif)
 - Stores tasks in Local storage see demo
 
 ## Getting started :
