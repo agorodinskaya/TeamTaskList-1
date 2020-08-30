@@ -8,14 +8,17 @@ The app was created as part of [Generation Australia assignment](https://austral
 
 #### Languages and frameworks :
 
-The app is written with :
+Task Planner is written with :
 
 - HTML 5
 - CSS 3
 - Bootstrap 4.5
 - Vanilla JS
 
-The app uses [local storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) to keep the created, updated and deleted tasks.
+It also uses :
+
+- [local storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) to keep the created, updated and deleted tasks.
+- [parcel](https://parceljs.org/getting_started.html) - web application bundler.
 
 #### Testing :
 
@@ -23,19 +26,15 @@ The app has been tested with [jest](https://jestjs.io/docs/en/getting-started).
 
 #### Demo :
 
-To see the demo please follow the link [Task Planner](https://goofy-archimedes-84bd01.netlify.app/).
+To see life demo please follow the link [Task Planner](https://goofy-archimedes-84bd01.netlify.app/).
 
-##### How to use :
+##### What it does and how it works:
 
-- Create task :
-
-- Update task :
-
-- Delete task :
-
-- Clear all :
-
-- Local storage, how to access:
+- ![Creates and validates the form with tasks](demo/create.gif)
+- ![Updates and deletes task](demo/editdeletelocalst.gif)
+- Clears all tasks
+- ![Filters tasks by priority or progress status](demo/filter.gif)
+- Stores tasks in Local storage see demo
 
 ## Getting started :
 
@@ -43,7 +42,7 @@ To see the demo please follow the link [Task Planner](https://goofy-archimedes-8
 
 1. Clone repository :
 
-```bash
+```
 git clone https://github.com/YPatton86/TeamTaskList
 ```
 
@@ -53,7 +52,7 @@ git clone https://github.com/YPatton86/TeamTaskList
 cd TeamTaskList
 ```
 
-3. Run command :
+3. Run command to launch the project :
 
 ```
 npm start
@@ -69,11 +68,14 @@ npm start
 npm test
 ```
 
-- add desired tests and wait for the results in the console.
+- add tests and wait for the results in the console.
 
 ## Authors :
 
-- **Yumi Patton** [Yumi's github](https://github.com/YPatton86)
-- **Anastasia Gorodinskaya** [Anastasia's github](https://github.com/agorodinskaya)
+- **Yumi Patton** - [Yumi's github](https://github.com/YPatton86)
+- **Anastasia Gorodinskaya** - [Anastasia's github](https://github.com/agorodinskaya)
 
 ## Acknowledgments:
+
+- Generation Australia
+- Anindha Parthy
