@@ -38,7 +38,7 @@ To see life demo please follow the link [Task Planner](https://goofy-archimedes-
 - Clears all tasks :
   ![Clears all tasks](demo/clear.gif)
 - Filter tasks by priority and status :
-  ![Filters tasks by priority or progress status](demo/filter.gif "width=250; border=solid")|
+  ![Filters tasks by priority or progress status](demo/filter.gif "width=250")|
   | ------ |
 
 ## Getting started :
