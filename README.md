@@ -2,11 +2,11 @@
 
 Basic Taskplanner inspired by the to-do list created in [Vue.js](https://vuejsexamples.com/advanced-to-do-list-application-built-with-vue-js/).
 
-The app was created as part of [Generation Australia assignment](https://australia.generation.org/programs/become-a-web-developer/)
+The app was created as part of [Generation Australia](https://australia.generation.org/programs/become-a-web-developer/) final assessment.
 
 ## Technical description :
 
-#### Languages and frameworks :
+### Languages and frameworks :
 
 Task Planner is written with :
 
@@ -20,15 +20,15 @@ It also uses :
 - [local storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) to keep the created, updated and deleted tasks.
 - [parcel](https://parceljs.org/getting_started.html) - web application bundler.
 
-#### Testing :
+### Testing :
 
 The app has been tested with [jest](https://jestjs.io/docs/en/getting-started).
 
-#### Demo :
+### Demo :
 
 To see the demo please follow the link [Task Planner](https://goofy-archimedes-84bd01.netlify.app/).
 
-##### What it does and how it works:
+#### What it does and how it works:
 
 - Creates task and validates content of the information in the form prior to creation of the task:
   ![Creates and validates the form with tasks](demo/create.gif)|
