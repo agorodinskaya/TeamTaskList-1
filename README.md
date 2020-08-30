@@ -17,7 +17,7 @@ Task Planner is written with :
 
 It also uses :
 
-- [Local storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) to keep the created, updated and deleted tasks saved in the browser. When the user opens Taskplanner, all the created tasks will be there.
+- [Local storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) to keep the created, updated and deleted tasks saved in the browser. When the user opens Task planner, all the created tasks will be there.
 - [Parcel.js](https://parceljs.org/getting_started.html) - web application bundler.
 
 ### Testing :
