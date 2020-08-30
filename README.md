@@ -34,21 +34,21 @@ To see life demo please follow the link [Task Planner](https://goofy-archimedes-
   ![Creates and validates the form with tasks](demo/create.gif)|
   | ------ |
 - Update and delete task - including in local storage:
-  ![Updates and deletes task](demo/editdeletelocalst.gif "width=50")|
+  ![Updates and deletes task](demo/editdeletelocalst.gif)|
   | ------ |
 - Stores tasks in Local storage see demo
 - Clears all tasks :
   ![Clears all tasks](demo/clear.gif)|
   | ------ |
 - Filter tasks by priority and status :
-  ![Filters tasks by priority or progress status](demo/filter.gif "width=250")|
+  ![Filters tasks by priority or progress status](demo/filter.gif)|
   | ------ |
 
 ## Getting started :
 
-<!-- - Fork the repository : -->
+0. Fork the repository
 
-1. Clone repository :
+1. Clone repository to your local machine :
 
 ```
 git clone https://github.com/YPatton86/TeamTaskList
