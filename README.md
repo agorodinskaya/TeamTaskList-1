@@ -51,7 +51,7 @@ To see the demo please follow the link [Task Planner](https://tender-payne-99092
 1. Clone repository to your local machine :
 
 ```
-git clone https://github.com/YPatton86/TeamTaskList
+git clone https://github.com/agorodinskaya/TeamTaskList-1
 ```
 
 2. Enter the folder TeamTaskList :
