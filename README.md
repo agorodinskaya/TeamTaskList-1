@@ -26,7 +26,7 @@ The app has been tested with [jest](https://jestjs.io/docs/en/getting-started).
 
 ### Demo :
 
-To see the demo please follow the link [Task Planner](https://goofy-archimedes-84bd01.netlify.app/).
+To see the demo please follow the link [Task Planner](https://tender-payne-99092c.netlify.app/).
 
 #### What it does and how it works:
 
