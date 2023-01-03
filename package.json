@@ -23,7 +23,7 @@
     "@babel/preset-env": "^7.11.0",
     "babel-jest": "^26.3.0",
     "jest": "^26.4.1",
-    "parcel": "^1.12.4"
+    "parcel": "^2.8.2"
   },
   "browserslist": [
     "last 1 Chrome version"
